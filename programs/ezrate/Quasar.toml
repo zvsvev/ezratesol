@@ -1,0 +1,8 @@
+[project]
+name = "ezrate"
+
+[toolchain]
+type = "solana"
+
+[testing]
+framework = "quasarsvm-rust"

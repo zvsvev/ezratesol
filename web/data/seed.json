@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "id": "evt_builder_night",
+      "slug": "solana-builder-night",
+      "name": "Solana Builder Night",
+      "location": "Jakarta",
+      "startsAt": "2026-05-16T12:00:00.000Z",
+      "organizer": "EZRATE Labs",
+      "maxReviews": 120,
+      "whitelistEmails": [
+        "alice@example.com",
+        "builder@example.com",
+        "demo@ezrate.fun"
+      ],
+      "averageRating": 4.8,
+      "reviewCount": 36,
+      "onchainEvent": "pending-devnet-deploy"
+    },
+    {
+      "id": "evt_defi_breakfast",
+      "slug": "defi-breakfast-club",
+      "name": "DeFi Breakfast Club",
+      "location": "Singapore",
+      "startsAt": "2026-05-24T02:00:00.000Z",
+      "organizer": "Open Finance Guild",
+      "maxReviews": 80,
+      "whitelistEmails": [
+        "demo@ezrate.fun",
+        "attendee@example.com"
+      ],
+      "averageRating": 4.5,
+      "reviewCount": 18,
+      "onchainEvent": "pending-devnet-deploy"
+    }
+  ],
+  "reviews": []
+}

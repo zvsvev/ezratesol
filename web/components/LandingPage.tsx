@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, ShieldCheck, TicketCheck } from 'lucide-react'
+import { ArrowRight, BadgeCheck, ShieldCheck, Sparkles, Star, TicketCheck, WalletCards } from 'lucide-react'
 
 export function LandingPage() {
   return (
@@ -6,7 +6,7 @@ export function LandingPage() {
       <main className="landing">
         <nav className="nav" aria-label="Main navigation">
           <a className="brand" href="/">
-            EZRATE
+            <span>EZ</span>RATE
           </a>
           <div className="navlinks">
             <a className="button ghost" href="#proof">
@@ -20,11 +20,13 @@ export function LandingPage() {
 
         <section className="hero">
           <div className="heroText">
-            <p className="eyebrow">On-chain reviews for Web3 events</p>
+            <p className="eyebrow">
+              <Sparkles size={16} /> Solana devnet MVP
+            </p>
             <h1>EZRATE</h1>
             <p>
-              Collect honest event ratings from verified attendees, sponsor their Solana fees, and
-              keep every review commitment tamper-resistant after submission.
+              A mobile-first review layer for Web3 events. Whitelist real attendees, sponsor their
+              review fees, and commit every rating to Solana.
             </p>
             <div className="heroActions">
               <a className="button secondary" href="/event/solana-builder-night">
@@ -33,6 +35,30 @@ export function LandingPage() {
               <a className="button ghost" href="/app">
                 Organizer app <ArrowRight size={18} />
               </a>
+            </div>
+          </div>
+          <div className="heroMockup" aria-hidden="true">
+            <div className="mockTop">
+              <span>EZRATE</span>
+              <div className="mockPill">devnet</div>
+            </div>
+            <div className="mockScore">
+              <span>Solana Builder Night</span>
+              <strong>4.8</strong>
+              <div>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star key={star} size={18} fill="currentColor" />
+                ))}
+              </div>
+            </div>
+            <div className="mockRows">
+              <div><span>Whitelisted</span><strong>120</strong></div>
+              <div><span>Submitted</span><strong>36</strong></div>
+              <div><span>Relay credits</span><strong>84</strong></div>
+            </div>
+            <div className="mockCommit">
+              <BadgeCheck size={18} />
+              review hash committed
             </div>
           </div>
         </section>
@@ -56,6 +82,12 @@ export function LandingPage() {
             <TicketCheck size={24} /> Sponsored
           </strong>
           <span>Organizers fund review transactions so attendees do not need SOL.</span>
+        </div>
+        <div className="proofItem">
+          <strong>
+            <WalletCards size={24} /> Reown Login
+          </strong>
+          <span>Google/social wallet onboarding is ready for your Reown project.</span>
         </div>
       </section>
     </>

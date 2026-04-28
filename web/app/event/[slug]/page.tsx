@@ -11,7 +11,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   }
 
   return (
-    <main className="reviewPage">
+    <main className="phonePage">
       <ReviewForm event={event} />
     </main>
   )

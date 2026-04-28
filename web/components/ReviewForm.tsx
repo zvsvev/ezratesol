@@ -1,10 +1,13 @@
 'use client'
 
+import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
 import { ArrowLeft, CheckCircle2, Send, ShieldCheck, Star } from 'lucide-react'
 import { useState } from 'react'
 import type { EventRecord } from '@/lib/types'
 
 export function ReviewForm({ event }: { event: EventRecord }) {
+  const { open } = useAppKit()
+  const { isConnected } = useAppKitAccount()
   const [email, setEmail] = useState('demo@ezrate.fun')
   const [rating, setRating] = useState(5)
   const [comment, setComment] = useState(
@@ -15,6 +18,13 @@ export function ReviewForm({ event }: { event: EventRecord }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function submitReview() {
+    if (!isConnected) {
+      setError('Login with Reown before submitting a review.')
+      setMessage(null)
+      open()
+      return
+    }
+
     setIsSubmitting(true)
     setError(null)
     setMessage(null)
@@ -103,9 +113,15 @@ export function ReviewForm({ event }: { event: EventRecord }) {
             )}
             {error && <div className="notice error">{error}</div>}
 
-            <button className="button" disabled={isSubmitting} onClick={submitReview} type="button">
-              {isSubmitting ? 'Submitting' : 'Submit review'} <Send size={18} />
-            </button>
+            {isConnected ? (
+              <button className="button" disabled={isSubmitting} onClick={submitReview} type="button">
+                {isSubmitting ? 'Submitting' : 'Submit review'} <Send size={18} />
+              </button>
+            ) : (
+              <button className="button" onClick={() => open()} type="button">
+                Login to review <ShieldCheck size={18} />
+              </button>
+            )}
           </div>
         </div>
       </div>

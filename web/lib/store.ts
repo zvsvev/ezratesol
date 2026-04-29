@@ -35,6 +35,12 @@ export function sha256Hex(value: string) {
 }
 
 function normalizeDb(db: Database): Database {
+  const bannerBySlug: Record<string, string> = {
+    'solana-builder-night': '/banners/solana-night.svg',
+    'defi-breakfast-club': '/banners/defi-breakfast.svg',
+    'zk-meetup-afterhours': '/banners/zk-afterhours.svg'
+  }
+
   return {
     ...db,
     events: db.events.map((event) => {
@@ -43,6 +49,7 @@ function normalizeDb(db: Database): Database {
       return {
         ...event,
         endsAt,
+        bannerImage: event.bannerImage || bannerBySlug[event.slug] || '/banners/solana-night.svg',
         passcode: isDemoEvent ? 'solananight52' : event.passcode || makePasscode(event.name),
         reviewOpensAt: isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.reviewOpensAt || endsAt,
         reviewClosesAt:

@@ -10,6 +10,7 @@
       "organizer": "EZRATE Labs",
       "maxReviews": 120,
       "passcode": "solananight52",
+      "bannerImage": "/banners/solana-night.svg",
       "reviewOpensAt": "2026-04-28T12:00:00.000Z",
       "reviewClosesAt": "2026-04-29T12:00:00.000Z",
       "rewardMode": "random",
@@ -35,6 +36,7 @@
       "organizer": "Open Finance Guild",
       "maxReviews": 80,
       "passcode": "defibreakfast31",
+      "bannerImage": "/banners/defi-breakfast.svg",
       "reviewOpensAt": "2026-05-24T04:00:00.000Z",
       "reviewClosesAt": "2026-05-25T04:00:00.000Z",
       "rewardMode": "pro-rata",
@@ -47,6 +49,31 @@
       ],
       "averageRating": 4.5,
       "reviewCount": 18,
+      "onchainEvent": "pending-devnet-deploy"
+    },
+    {
+      "id": "evt_zk_meetup",
+      "slug": "zk-meetup-afterhours",
+      "name": "ZK Meetup Afterhours",
+      "location": "Bangkok",
+      "startsAt": "2026-05-29T11:00:00.000Z",
+      "endsAt": "2026-05-29T14:00:00.000Z",
+      "organizer": "Privacy Builders",
+      "maxReviews": 60,
+      "passcode": "zkafterhours44",
+      "bannerImage": "/banners/zk-afterhours.svg",
+      "reviewOpensAt": "2026-05-29T14:00:00.000Z",
+      "reviewClosesAt": "2026-05-30T14:00:00.000Z",
+      "rewardMode": "random",
+      "rewardAsset": "voucher",
+      "rewardAmount": "5 passes",
+      "creationFeeStatus": "paid",
+      "whitelistEmails": [
+        "demo@ezrate.fun",
+        "zk@example.com"
+      ],
+      "averageRating": 4.7,
+      "reviewCount": 22,
       "onchainEvent": "pending-devnet-deploy"
     }
   ],

@@ -5,9 +5,10 @@ import {
   ArrowRight,
   CalendarPlus,
   Check,
+  Edit3,
   Home,
-  ListChecks,
   Plus,
+  Save,
   SearchCheck,
   Star,
   TicketCheck,
@@ -20,6 +21,7 @@ export function AppHome() {
   const { open } = useAppKit()
   const { address, isConnected } = useAppKitAccount()
   const [events, setEvents] = useState<EventRecord[]>([])
+  const [activeEventIndex, setActiveEventIndex] = useState(0)
   const [view, setView] = useState<'home' | 'review' | 'create' | 'user'>('home')
   const [name, setName] = useState('')
   const [location, setLocation] = useState('')
@@ -37,15 +39,43 @@ export function AppHome() {
   const [passcodeError, setPasscodeError] = useState<string | null>(null)
   const [isFindingEvent, setIsFindingEvent] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
+  const [displayName, setDisplayName] = useState('EZRATE User')
+  const [profileEmail, setProfileEmail] = useState('')
+  const [isEditingProfile, setIsEditingProfile] = useState(false)
 
   useEffect(() => {
     refreshEvents()
   }, [])
 
+  useEffect(() => {
+    const savedProfile = window.localStorage.getItem('ezrate-profile')
+    if (!savedProfile) return
+
+    try {
+      const profile = JSON.parse(savedProfile) as { displayName?: string; profileEmail?: string }
+      setDisplayName(profile.displayName || 'EZRATE User')
+      setProfileEmail(profile.profileEmail || '')
+    } catch {
+      window.localStorage.removeItem('ezrate-profile')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (events.length < 2 || view !== 'home') return
+    const timer = window.setInterval(() => {
+      setActiveEventIndex((current) => (current + 1) % events.length)
+    }, 3600)
+
+    return () => window.clearInterval(timer)
+  }, [events.length, view])
+
   function refreshEvents() {
     fetch('/api/events')
       .then((response) => response.json())
-      .then((payload) => setEvents(payload.events || []))
+      .then((payload) => {
+        setEvents(payload.events || [])
+        setActiveEventIndex(0)
+      })
       .catch(() => setEvents([]))
   }
 
@@ -103,6 +133,13 @@ export function AppHome() {
     return `Review closes ${close.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`
   }
 
+  function saveProfile() {
+    window.localStorage.setItem('ezrate-profile', JSON.stringify({ displayName, profileEmail }))
+    setIsEditingProfile(false)
+  }
+
+  const activeEvent = events[activeEventIndex]
+
   return (
     <main className="phonePage">
       <section className="phoneShell" aria-label="EZRATE mobile app">
@@ -143,6 +180,32 @@ export function AppHome() {
                 <span>Credits cover participant voting fees via relayer.</span>
               </section>
 
+              {activeEvent && (
+                <section className="eventCarousel" aria-label="Featured live events">
+                  <a className="eventBanner" href={`/event/${activeEvent.slug}`}>
+                    <img src={activeEvent.bannerImage || '/banners/solana-night.svg'} alt="" />
+                    <div className="bannerOverlay">
+                      <span>{activeEvent.location}</span>
+                      <strong>{activeEvent.name}</strong>
+                      <div className="bannerMeta">
+                        <span>{activeEvent.reviewCount}/{activeEvent.maxReviews} reviews</span>
+                        <span>{activeEvent.rewardMode === 'none' ? 'No reward' : `${activeEvent.rewardAmount} ${activeEvent.rewardAsset}`}</span>
+                      </div>
+                    </div>
+                  </a>
+                  <div className="carouselDots" aria-hidden="true">
+                    {events.map((event, index) => (
+                      <button
+                        className={index === activeEventIndex ? 'active' : ''}
+                        key={event.id}
+                        onClick={() => setActiveEventIndex(index)}
+                        type="button"
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {createdEvent && (
                 <a className="notice successLink" href={`/event/${createdEvent.slug}`}>
                   <Check size={18} /> Created: {createdEvent.name} · passcode {createdEvent.passcode}
@@ -156,8 +219,8 @@ export function AppHome() {
                 <button className="quickAction" onClick={() => setView('review')} type="button">
                   <TicketCheck size={22} /> Review
                 </button>
-                <button className="quickAction" type="button">
-                  <ListChecks size={22} /> Luma CSV
+                <button className="quickAction" onClick={() => setView('user')} type="button">
+                  <User size={22} /> Profile
                 </button>
               </div>
 
@@ -285,9 +348,38 @@ export function AppHome() {
               <div className="profileCard">
                 <User size={22} />
                 <div>
-                  <strong>demo@ezrate.fun</strong>
-                  <span>Reown Google login</span>
+                  <strong>{displayName}</strong>
+                  <span>{address || 'Wallet not connected'}</span>
                 </div>
+              </div>
+              <div className="profileEdit">
+                <label className="field">
+                  Display name
+                  <input
+                    disabled={!isEditingProfile}
+                    placeholder="Display name"
+                    value={displayName}
+                    onChange={(event) => setDisplayName(event.target.value)}
+                  />
+                </label>
+                <label className="field">
+                  Email
+                  <input
+                    disabled={!isEditingProfile}
+                    placeholder="Email"
+                    value={profileEmail}
+                    onChange={(event) => setProfileEmail(event.target.value)}
+                  />
+                </label>
+                {isEditingProfile ? (
+                  <button className="button" onClick={saveProfile} type="button">
+                    Save profile <Save size={18} />
+                  </button>
+                ) : (
+                  <button className="button quiet" onClick={() => setIsEditingProfile(true)} type="button">
+                    Edit profile <Edit3 size={18} />
+                  </button>
+                )}
               </div>
               <div className="historyList">
                 <div>

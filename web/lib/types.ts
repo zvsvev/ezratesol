@@ -22,6 +22,7 @@ export type EventRecord = {
   organizer: string
   maxReviews: number
   passcode: string
+  bannerImage?: string
   reviewOpensAt: string
   reviewClosesAt: string
   rewardMode: RewardMode

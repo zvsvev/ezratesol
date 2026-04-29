@@ -69,8 +69,19 @@ export function ReviewForm({ event }: { event: EventRecord }) {
             <span>{event.location}</span>
             <h2>{event.name}</h2>
             <p>
-              {event.reviewCount}/{event.maxReviews} reviews collected
+              {event.reviewCount}/{event.maxReviews} reviews collected · closes{' '}
+              {new Date(event.reviewClosesAt).toLocaleString([], {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
             </p>
+            {event.rewardMode !== 'none' && (
+              <p>
+                Reward: {event.rewardMode} · {event.rewardAmount} {event.rewardAsset}
+              </p>
+            )}
           </div>
           <div className="eventBadge">
             <ShieldCheck size={18} /> Luma

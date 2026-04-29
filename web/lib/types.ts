@@ -9,14 +9,25 @@ export type Review = {
   createdAt: string
 }
 
+export type RewardMode = 'none' | 'random' | 'pro-rata'
+export type RewardAsset = 'SOL' | 'USDC' | 'voucher'
+
 export type EventRecord = {
   id: string
   slug: string
   name: string
   location: string
   startsAt: string
+  endsAt: string
   organizer: string
   maxReviews: number
+  passcode: string
+  reviewOpensAt: string
+  reviewClosesAt: string
+  rewardMode: RewardMode
+  rewardAsset: RewardAsset
+  rewardAmount: string
+  creationFeeStatus: 'unpaid' | 'paid'
   whitelistEmails: string[]
   averageRating: number
   reviewCount: number

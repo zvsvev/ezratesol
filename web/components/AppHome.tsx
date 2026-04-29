@@ -7,7 +7,7 @@ import {
   Home,
   ListChecks,
   Plus,
-  Search,
+  SearchCheck,
   Star,
   TicketCheck,
   User
@@ -17,12 +17,22 @@ import type { EventRecord } from '@/lib/types'
 
 export function AppHome() {
   const [events, setEvents] = useState<EventRecord[]>([])
-  const [view, setView] = useState<'home' | 'create'>('home')
+  const [view, setView] = useState<'home' | 'review' | 'create' | 'user'>('home')
   const [name, setName] = useState('ETHGlobal Side Event')
   const [location, setLocation] = useState('Jakarta')
   const [maxReviews, setMaxReviews] = useState(75)
+  const [endsAt, setEndsAt] = useState(() => {
+    const date = new Date(Date.now() - 60 * 60 * 1000)
+    return date.toISOString().slice(0, 16)
+  })
+  const [rewardMode, setRewardMode] = useState<'none' | 'random' | 'pro-rata'>('random')
+  const [rewardAsset, setRewardAsset] = useState<'SOL' | 'USDC' | 'voucher'>('USDC')
+  const [rewardAmount, setRewardAmount] = useState('100')
   const [whitelistEmails, setWhitelistEmails] = useState('demo@ezrate.fun\nbuilder@example.com')
   const [createdEvent, setCreatedEvent] = useState<EventRecord | null>(null)
+  const [passcode, setPasscode] = useState('solananight52')
+  const [passcodeError, setPasscodeError] = useState<string | null>(null)
+  const [isFindingEvent, setIsFindingEvent] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
 
   useEffect(() => {
@@ -45,9 +55,14 @@ export function AppHome() {
       body: JSON.stringify({
         name,
         location,
-        startsAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+        startsAt: new Date(endsAt).toISOString(),
+        endsAt: new Date(endsAt).toISOString(),
         organizer: 'Demo Organizer',
         maxReviews,
+        rewardMode,
+        rewardAsset,
+        rewardAmount,
+        creationFeeStatus: 'paid',
         whitelistEmails
       })
     })
@@ -59,6 +74,30 @@ export function AppHome() {
       refreshEvents()
       setView('home')
     }
+  }
+
+  async function findEventByPasscode() {
+    setIsFindingEvent(true)
+    setPasscodeError(null)
+    const response = await fetch('/api/events', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ passcode })
+    })
+    const payload = await response.json()
+    setIsFindingEvent(false)
+
+    if (!response.ok) {
+      setPasscodeError(payload.message || 'No event found for that passcode.')
+      return
+    }
+
+    window.location.href = `/event/${payload.event.slug}`
+  }
+
+  function renderWindow(event: EventRecord) {
+    const close = new Date(event.reviewClosesAt)
+    return `Review closes ${close.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`
   }
 
   return (
@@ -83,7 +122,7 @@ export function AppHome() {
 
               {createdEvent && (
                 <a className="notice successLink" href={`/event/${createdEvent.slug}`}>
-                  <Check size={18} /> Created: {createdEvent.name}
+                  <Check size={18} /> Created: {createdEvent.name} · passcode {createdEvent.passcode}
                 </a>
               )}
 
@@ -91,9 +130,9 @@ export function AppHome() {
                 <button className="quickAction" onClick={() => setView('create')} type="button">
                   <CalendarPlus size={22} /> Create
                 </button>
-                <a className="quickAction" href="/event/solana-builder-night">
+                <button className="quickAction" onClick={() => setView('review')} type="button">
                   <TicketCheck size={22} /> Review
-                </a>
+                </button>
                 <button className="quickAction" type="button">
                   <ListChecks size={22} /> Luma CSV
                 </button>
@@ -110,6 +149,7 @@ export function AppHome() {
                         <span>
                           {event.reviewCount}/{event.maxReviews} reviews
                         </span>
+                        <span>{renderWindow(event)}</span>
                       </div>
                     </div>
                     <div className="ratingRow" aria-label={`${event.averageRating.toFixed(1)} stars`}>
@@ -121,11 +161,29 @@ export function AppHome() {
                 ))}
               </div>
             </>
-          ) : (
+          ) : view === 'review' ? (
+            <section className="createPanel">
+              <div>
+                <h2>Enter passcode</h2>
+                <p>Use the event code from the organizer to open the correct review form.</p>
+              </div>
+              <label className="field">
+                Event passcode
+                <input value={passcode} onChange={(event) => setPasscode(event.target.value)} />
+              </label>
+              {passcodeError && <div className="notice error">{passcodeError}</div>}
+              <button className="button" disabled={isFindingEvent} onClick={findEventByPasscode} type="button">
+                {isFindingEvent ? 'Finding' : 'Find event'} <SearchCheck size={18} />
+              </button>
+              <div className="hintCard">
+                Demo passcode: <strong>solananight52</strong>
+              </div>
+            </section>
+          ) : view === 'create' ? (
             <section className="createPanel">
               <div>
                 <h2>Create event</h2>
-                <p>Paste Luma emails now; CSV import can use the same backend later.</p>
+                <p>Pay the creation fee, generate a review link and passcode, then share it after the event.</p>
               </div>
               <label className="field">
                 Event name
@@ -145,6 +203,36 @@ export function AppHome() {
                 />
               </label>
               <label className="field">
+                Event end date and time
+                <input value={endsAt} onChange={(event) => setEndsAt(event.target.value)} type="datetime-local" />
+              </label>
+              <div className="segmented">
+                {(['none', 'random', 'pro-rata'] as const).map((mode) => (
+                  <button
+                    className={rewardMode === mode ? 'active' : ''}
+                    key={mode}
+                    onClick={() => setRewardMode(mode)}
+                    type="button"
+                  >
+                    {mode}
+                  </button>
+                ))}
+              </div>
+              <div className="splitActions">
+                <label className="field">
+                  Reward type
+                  <select value={rewardAsset} onChange={(event) => setRewardAsset(event.target.value as 'SOL' | 'USDC' | 'voucher')}>
+                    <option value="SOL">SOL</option>
+                    <option value="USDC">USDC</option>
+                    <option value="voucher">Voucher</option>
+                  </select>
+                </label>
+                <label className="field">
+                  Reward amount
+                  <input value={rewardAmount} onChange={(event) => setRewardAmount(event.target.value)} />
+                </label>
+              </div>
+              <label className="field">
                 Luma whitelist emails
                 <textarea
                   value={whitelistEmails}
@@ -160,22 +248,50 @@ export function AppHome() {
                 </button>
               </div>
             </section>
+          ) : (
+            <section className="createPanel">
+              <div>
+                <h2>User</h2>
+                <p>Profile, review history, and reward notifications for attendees.</p>
+              </div>
+              <div className="profileCard">
+                <User size={22} />
+                <div>
+                  <strong>demo@ezrate.fun</strong>
+                  <span>Reown Google login</span>
+                </div>
+              </div>
+              <div className="historyList">
+                <div>
+                  <span>Review history</span>
+                  <strong>Solana Builder Night · pending relay</strong>
+                </div>
+                <div>
+                  <span>Reward notification</span>
+                  <strong>Random USDC reward draw after review window closes</strong>
+                </div>
+                <div>
+                  <span>Claim status</span>
+                  <strong>Waiting for organizer payout</strong>
+                </div>
+              </div>
+            </section>
           )}
         </div>
 
         <nav className="tabs" aria-label="App tabs">
-          <a className="tab active" href="/app">
+          <button className={`tab ${view === 'home' ? 'active' : ''}`} onClick={() => setView('home')} type="button">
             <Home size={19} /> Home
-          </a>
-          <a className="tab" href="/app">
-            <Search size={19} /> Search
-          </a>
-          <button className="tab" onClick={() => setView('create')} type="button">
+          </button>
+          <button className={`tab ${view === 'review' ? 'active' : ''}`} onClick={() => setView('review')} type="button">
+            <TicketCheck size={19} /> Review
+          </button>
+          <button className={`tab ${view === 'create' ? 'active' : ''}`} onClick={() => setView('create')} type="button">
             <Plus size={19} /> Create
           </button>
-          <a className="tab" href="/app">
-            <User size={19} /> Profile
-          </a>
+          <button className={`tab ${view === 'user' ? 'active' : ''}`} onClick={() => setView('user')} type="button">
+            <User size={19} /> User
+          </button>
         </nav>
       </section>
     </main>

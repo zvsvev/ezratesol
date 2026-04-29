@@ -9,11 +9,8 @@ export function LandingPage() {
             <span>EZ</span>RATE
           </a>
           <div className="navlinks">
-            <a className="button ghost" href="#proof">
-              MVP
-            </a>
             <a className="button secondary" href="/app">
-              Open App <ArrowRight size={18} />
+              Launch App <ArrowRight size={18} />
             </a>
           </div>
         </nav>
@@ -29,11 +26,8 @@ export function LandingPage() {
               review fees, and commit every rating to Solana.
             </p>
             <div className="heroActions">
-              <a className="button secondary" href="/event/solana-builder-night">
-                Try review flow <TicketCheck size={18} />
-              </a>
-              <a className="button ghost" href="/app">
-                Organizer app <ArrowRight size={18} />
+              <a className="button secondary" href="/app">
+                Launch App <ArrowRight size={18} />
               </a>
             </div>
           </div>

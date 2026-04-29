@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import { createHash, randomUUID } from 'crypto'
-import type { EventRecord, Review } from './types'
+import type { EventRecord, Review, RewardAsset, RewardMode } from './types'
 
 type Database = {
   events: EventRecord[]
@@ -18,9 +18,9 @@ async function readJson(filePath: string): Promise<Database> {
 
 async function loadDb(): Promise<Database> {
   try {
-    return await readJson(runtimePath)
+    return normalizeDb(await readJson(runtimePath))
   } catch {
-    const seed = await readJson(seedPath)
+    const seed = normalizeDb(await readJson(seedPath))
     await fs.writeFile(runtimePath, JSON.stringify(seed, null, 2))
     return seed
   }
@@ -32,6 +32,30 @@ async function saveDb(db: Database) {
 
 export function sha256Hex(value: string) {
   return createHash('sha256').update(value.trim().toLowerCase()).digest('hex')
+}
+
+function normalizeDb(db: Database): Database {
+  return {
+    ...db,
+    events: db.events.map((event) => {
+      const isDemoEvent = event.slug === 'solana-builder-night'
+      const endsAt = isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.endsAt || event.startsAt || new Date().toISOString()
+      return {
+        ...event,
+        endsAt,
+        passcode: isDemoEvent ? 'solananight52' : event.passcode || makePasscode(event.name),
+        reviewOpensAt: isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.reviewOpensAt || endsAt,
+        reviewClosesAt:
+          isDemoEvent
+            ? '2026-04-29T12:00:00.000Z'
+            : event.reviewClosesAt || new Date(new Date(endsAt).getTime() + 24 * 60 * 60 * 1000).toISOString(),
+        rewardMode: isDemoEvent ? 'random' : event.rewardMode || 'none',
+        rewardAsset: isDemoEvent ? 'USDC' : event.rewardAsset || 'SOL',
+        rewardAmount: isDemoEvent ? '100' : event.rewardAmount || '',
+        creationFeeStatus: event.creationFeeStatus || 'paid'
+      }
+    })
+  }
 }
 
 export async function listEvents() {
@@ -52,27 +76,62 @@ export async function getEvent(slug: string) {
   }
 }
 
+export async function getEventByPasscode(passcode: string) {
+  const db = await loadDb()
+  const normalizedPasscode = passcode.trim().toLowerCase()
+  const event = db.events.find((item) => item.passcode.toLowerCase() === normalizedPasscode)
+  if (!event) return null
+  return {
+    ...event,
+    whitelistEmails: []
+  }
+}
+
+function makeSlug(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+}
+
+function makePasscode(name: string) {
+  const compact = name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 18) || 'event'
+  return `${compact}${Math.floor(10 + Math.random() * 90)}`
+}
+
 export async function createEvent(input: {
   name: string
   location: string
   startsAt: string
+  endsAt: string
   organizer: string
   maxReviews: number
+  rewardMode: RewardMode
+  rewardAsset: RewardAsset
+  rewardAmount: string
+  creationFeeStatus: 'unpaid' | 'paid'
   whitelistEmails: string[]
 }) {
   const db = await loadDb()
-  const slug = input.name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
+  const slug = makeSlug(input.name)
+  const endsAt = new Date(input.endsAt)
+  const reviewClosesAt = new Date(endsAt.getTime() + 24 * 60 * 60 * 1000)
   const event: EventRecord = {
     id: randomUUID(),
     slug,
     name: input.name,
     location: input.location,
     startsAt: input.startsAt,
+    endsAt: endsAt.toISOString(),
     organizer: input.organizer,
     maxReviews: input.maxReviews,
+    passcode: makePasscode(input.name),
+    reviewOpensAt: endsAt.toISOString(),
+    reviewClosesAt: reviewClosesAt.toISOString(),
+    rewardMode: input.rewardMode,
+    rewardAsset: input.rewardAsset,
+    rewardAmount: input.rewardAmount,
+    creationFeeStatus: input.creationFeeStatus,
     whitelistEmails: input.whitelistEmails.map((email) => email.trim().toLowerCase()).filter(Boolean),
     averageRating: 0,
     reviewCount: 0
@@ -93,6 +152,16 @@ export async function submitReview(input: {
   const event = db.events.find((item) => item.slug === input.eventSlug)
   if (!event) {
     return { ok: false as const, message: 'Event not found.' }
+  }
+
+  const now = Date.now()
+  const opensAt = new Date(event.reviewOpensAt).getTime()
+  const closesAt = new Date(event.reviewClosesAt).getTime()
+  if (now < opensAt) {
+    return { ok: false as const, message: 'Review opens after the event ends.' }
+  }
+  if (now > closesAt) {
+    return { ok: false as const, message: 'Review window has closed.' }
   }
 
   const email = input.email.trim().toLowerCase()

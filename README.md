@@ -36,6 +36,10 @@ Open `http://localhost:3000` for the landing page and `http://localhost:3000/app
 
 Use [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md) for a step-by-step Vercel deployment guide.
 
+## Supabase
+
+Use [SUPABASE.md](./SUPABASE.md) and [supabase/schema.sql](./supabase/schema.sql) when moving the MVP from local JSON/browser storage to hosted persistence.
+
 ## Solana Program
 
 ```bash

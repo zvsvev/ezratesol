@@ -292,6 +292,17 @@ h1 {
   padding: 20px;
 }
 
+.themeLight {
+  color: #0d1712;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(55, 246, 195, 0.28), transparent 28%),
+    linear-gradient(180deg, #eef8f1, #dfe9e4);
+  --ink: #0d1712;
+  --muted: #53635c;
+  --line: rgba(15, 38, 28, 0.16);
+  --surface: rgba(255, 255, 255, 0.82);
+}
+
 .phoneShell {
   width: min(430px, 100vw - 24px);
   height: min(880px, calc(100dvh - 40px));
@@ -317,6 +328,22 @@ h1 {
   justify-content: space-between;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.03);
+}
+
+.themeLight .phoneShell {
+  background: #f8fbf7;
+  box-shadow: 0 28px 90px rgba(30, 64, 47, 0.18);
+}
+
+.themeLight .appTop,
+.themeLight .tabs {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .appTitle {
@@ -414,6 +441,14 @@ h1 {
   padding: 20px;
   display: grid;
   gap: 12px;
+}
+
+.themeLight .balancePanel,
+.themeLight .eventHeroCard {
+  background:
+    radial-gradient(circle at 85% 18%, rgba(55, 246, 195, 0.28), transparent 34%),
+    linear-gradient(135deg, #ffffff, #e9f5ee);
+  color: #0d1712;
 }
 
 .balancePanel span,
@@ -522,6 +557,22 @@ h1 {
   color: var(--green);
 }
 
+.skeletonCard {
+  min-height: 68px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.skeletonCard svg {
+  animation: spin 800ms linear infinite;
+}
+
 .eventList {
   display: grid;
   gap: 10px;
@@ -542,6 +593,19 @@ h1 {
   justify-content: space-between;
   gap: 12px;
   align-items: center;
+}
+
+.themeLight .eventCard,
+.themeLight .quickAction,
+.themeLight .reviewPanel,
+.themeLight .createPanel,
+.themeLight .hintCard,
+.themeLight .profileCard,
+.themeLight .historyList div,
+.themeLight .sharePanel,
+.themeLight .previewCard,
+.themeLight .feePanel {
+  background: rgba(255, 255, 255, 0.78);
 }
 
 .eventCard strong {
@@ -604,6 +668,99 @@ h1 {
   padding: 16px;
   display: grid;
   gap: 16px;
+}
+
+.sharePanel,
+.previewCard,
+.feePanel {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.sharePanel h2,
+.sharePanel p {
+  margin: 0;
+}
+
+.sharePanel p,
+.previewCard span,
+.feePanel span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.qrMock {
+  width: 96px;
+  height: 96px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  background:
+    linear-gradient(90deg, currentColor 10px, transparent 10px) 0 0 / 22px 22px,
+    linear-gradient(currentColor 10px, transparent 10px) 0 0 / 22px 22px,
+    linear-gradient(135deg, var(--green), var(--mint));
+  color: rgba(6, 16, 11, 0.22);
+}
+
+.copyRow {
+  min-height: 50px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink);
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) 18px;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+}
+
+.copyRow span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.copyRow strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.previewCard img {
+  width: 100%;
+  min-height: 104px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.previewCard strong {
+  font-size: 19px;
+}
+
+.feePanel {
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: start;
+}
+
+.feePanel svg {
+  color: var(--gold);
+}
+
+.feePanel strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.feePanel.paid svg {
+  color: var(--green);
 }
 
 .createPanel h2,
@@ -780,6 +937,11 @@ h1 {
   gap: 12px;
 }
 
+.field input:disabled {
+  opacity: 0.72;
+  cursor: default;
+}
+
 @keyframes menuSlideIn {
   from {
     opacity: 0;
@@ -789,6 +951,12 @@ h1 {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

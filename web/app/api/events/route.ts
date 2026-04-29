@@ -8,6 +8,12 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const body = await request.json()
+  if (!String(body.name || '').trim()) {
+    return NextResponse.json({ message: 'Event name is required.' }, { status: 400 })
+  }
+  if (!String(body.location || '').trim()) {
+    return NextResponse.json({ message: 'Location is required.' }, { status: 400 })
+  }
   const event = await createEvent({
     name: String(body.name || ''),
     location: String(body.location || ''),

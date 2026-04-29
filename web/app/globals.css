@@ -337,6 +337,21 @@ h1 {
   font-size: 13px;
 }
 
+.authChip {
+  min-height: 36px;
+  max-width: 132px;
+  border: 1px solid rgba(140, 255, 122, 0.28);
+  border-radius: 999px;
+  background: rgba(140, 255, 122, 0.1);
+  color: var(--green);
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: normal;
+  line-height: 1.1;
+}
+
 .appContent {
   padding: 18px;
   display: grid;
@@ -347,6 +362,45 @@ h1 {
   overflow: auto;
   animation: menuSlideIn 240ms ease-out both;
   will-change: opacity, transform;
+}
+
+.authContent {
+  place-items: center;
+  align-content: center;
+}
+
+.authGate {
+  width: 100%;
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  text-align: center;
+  padding: 18px;
+}
+
+.authGate h2 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+.authGate p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.authMark {
+  width: 82px;
+  height: 82px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--green), var(--mint));
+  color: #06100b;
+  font-size: 28px;
+  font-weight: 950;
+  box-shadow: 0 18px 55px rgba(55, 246, 195, 0.24);
 }
 
 .balancePanel,

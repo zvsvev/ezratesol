@@ -7,7 +7,7 @@ import type { EventRecord } from '@/lib/types'
 
 export function ReviewForm({ event }: { event: EventRecord }) {
   const { open } = useAppKit()
-  const { isConnected } = useAppKitAccount()
+  const { address, isConnected } = useAppKitAccount()
   const [email, setEmail] = useState('')
   const [rating, setRating] = useState(5)
   const [comment, setComment] = useState('')
@@ -17,7 +17,7 @@ export function ReviewForm({ event }: { event: EventRecord }) {
 
   async function submitReview() {
     if (!isConnected) {
-      setError('Login with Reown before submitting a review.')
+      setError('Sign in or register before submitting a review.')
       setMessage(null)
       open()
       return
@@ -58,7 +58,15 @@ export function ReviewForm({ event }: { event: EventRecord }) {
           <strong>Review</strong>
           <span>Verified attendee</span>
         </div>
-        <appkit-button />
+        {isConnected ? (
+          <button className="authChip" onClick={() => open()} type="button">
+            {address?.slice(0, 4)}...{address?.slice(-4)}
+          </button>
+        ) : (
+          <button className="authChip" onClick={() => open()} type="button">
+            SIGN IN OR REGISTER
+          </button>
+        )}
       </header>
 
       <div className="appContent">
@@ -132,7 +140,7 @@ export function ReviewForm({ event }: { event: EventRecord }) {
               </button>
             ) : (
               <button className="button" onClick={() => open()} type="button">
-                Login to review <ShieldCheck size={18} />
+                SIGN IN OR REGISTER <ShieldCheck size={18} />
               </button>
             )}
           </div>

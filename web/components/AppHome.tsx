@@ -1,5 +1,6 @@
 'use client'
 
+import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
 import {
   ArrowRight,
   CalendarPlus,
@@ -16,6 +17,8 @@ import { useEffect, useState } from 'react'
 import type { EventRecord } from '@/lib/types'
 
 export function AppHome() {
+  const { open } = useAppKit()
+  const { address, isConnected } = useAppKitAccount()
   const [events, setEvents] = useState<EventRecord[]>([])
   const [view, setView] = useState<'home' | 'review' | 'create' | 'user'>('home')
   const [name, setName] = useState('')
@@ -108,9 +111,29 @@ export function AppHome() {
             <strong>EZRATE</strong>
             <span>Solana devnet MVP</span>
           </div>
-          <appkit-button />
+          {isConnected ? (
+            <button className="authChip" onClick={() => open()} type="button">
+              {address?.slice(0, 4)}...{address?.slice(-4)}
+            </button>
+          ) : (
+            <button className="authChip" onClick={() => open()} type="button">
+              SIGN IN OR REGISTER
+            </button>
+          )}
         </header>
 
+        {!isConnected ? (
+          <div className="appContent authContent">
+            <section className="authGate">
+              <div className="authMark">EZ</div>
+              <h2>SIGN IN OR REGISTER</h2>
+              <p>Access the organizer app, event passcodes, review history, and reward notifications.</p>
+              <button className="button" onClick={() => open()} type="button">
+                SIGN IN OR REGISTER <ArrowRight size={18} />
+              </button>
+            </section>
+          </div>
+        ) : (
         <div className="appContent" key={view}>
           {view === 'home' ? (
             <>
@@ -283,8 +306,9 @@ export function AppHome() {
             </section>
           )}
         </div>
+        )}
 
-        <nav className="tabs" aria-label="App tabs">
+        {isConnected && <nav className="tabs" aria-label="App tabs">
           <button className={`tab ${view === 'home' ? 'active' : ''}`} onClick={() => setView('home')} type="button">
             <Home size={19} /> Home
           </button>
@@ -297,7 +321,7 @@ export function AppHome() {
           <button className={`tab ${view === 'user' ? 'active' : ''}`} onClick={() => setView('user')} type="button">
             <User size={19} /> User
           </button>
-        </nav>
+        </nav>}
       </section>
     </main>
   )

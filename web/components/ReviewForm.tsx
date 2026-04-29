@@ -8,11 +8,9 @@ import type { EventRecord } from '@/lib/types'
 export function ReviewForm({ event }: { event: EventRecord }) {
   const { open } = useAppKit()
   const { isConnected } = useAppKitAccount()
-  const [email, setEmail] = useState('demo@ezrate.fun')
+  const [email, setEmail] = useState('')
   const [rating, setRating] = useState(5)
-  const [comment, setComment] = useState(
-    'The event had useful builders, clear sessions, and enough time for networking after the talks. I would recommend keeping the demo area open longer next time.'
-  )
+  const [comment, setComment] = useState('')
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -92,7 +90,7 @@ export function ReviewForm({ event }: { event: EventRecord }) {
           <div className="formGrid">
             <label className="field">
               Luma email
-              <input value={email} onChange={(event) => setEmail(event.target.value)} />
+              <input placeholder="Luma email" value={email} onChange={(event) => setEmail(event.target.value)} />
             </label>
 
             <div className="field">
@@ -114,7 +112,11 @@ export function ReviewForm({ event }: { event: EventRecord }) {
 
             <label className="field">
               Review
-              <textarea value={comment} onChange={(event) => setComment(event.target.value)} />
+              <textarea
+                placeholder="100+ character review"
+                value={comment}
+                onChange={(event) => setComment(event.target.value)}
+              />
             </label>
 
             {message && (

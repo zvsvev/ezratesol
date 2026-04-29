@@ -18,8 +18,8 @@ import type { EventRecord } from '@/lib/types'
 export function AppHome() {
   const [events, setEvents] = useState<EventRecord[]>([])
   const [view, setView] = useState<'home' | 'review' | 'create' | 'user'>('home')
-  const [name, setName] = useState('ETHGlobal Side Event')
-  const [location, setLocation] = useState('Jakarta')
+  const [name, setName] = useState('')
+  const [location, setLocation] = useState('')
   const [maxReviews, setMaxReviews] = useState(75)
   const [endsAt, setEndsAt] = useState(() => {
     const date = new Date(Date.now() - 60 * 60 * 1000)
@@ -27,10 +27,10 @@ export function AppHome() {
   })
   const [rewardMode, setRewardMode] = useState<'none' | 'random' | 'pro-rata'>('random')
   const [rewardAsset, setRewardAsset] = useState<'SOL' | 'USDC' | 'voucher'>('USDC')
-  const [rewardAmount, setRewardAmount] = useState('100')
-  const [whitelistEmails, setWhitelistEmails] = useState('demo@ezrate.fun\nbuilder@example.com')
+  const [rewardAmount, setRewardAmount] = useState('')
+  const [whitelistEmails, setWhitelistEmails] = useState('')
   const [createdEvent, setCreatedEvent] = useState<EventRecord | null>(null)
-  const [passcode, setPasscode] = useState('solananight52')
+  const [passcode, setPasscode] = useState('')
   const [passcodeError, setPasscodeError] = useState<string | null>(null)
   const [isFindingEvent, setIsFindingEvent] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
@@ -169,7 +169,11 @@ export function AppHome() {
               </div>
               <label className="field">
                 Event passcode
-                <input value={passcode} onChange={(event) => setPasscode(event.target.value)} />
+                <input
+                  placeholder="Event code"
+                  value={passcode}
+                  onChange={(event) => setPasscode(event.target.value)}
+                />
               </label>
               {passcodeError && <div className="notice error">{passcodeError}</div>}
               <button className="button" disabled={isFindingEvent} onClick={findEventByPasscode} type="button">
@@ -187,11 +191,11 @@ export function AppHome() {
               </div>
               <label className="field">
                 Event name
-                <input value={name} onChange={(event) => setName(event.target.value)} />
+                <input placeholder="Event name" value={name} onChange={(event) => setName(event.target.value)} />
               </label>
               <label className="field">
                 Location
-                <input value={location} onChange={(event) => setLocation(event.target.value)} />
+                <input placeholder="City or venue" value={location} onChange={(event) => setLocation(event.target.value)} />
               </label>
               <label className="field">
                 Max reviews
@@ -229,12 +233,13 @@ export function AppHome() {
                 </label>
                 <label className="field">
                   Reward amount
-                  <input value={rewardAmount} onChange={(event) => setRewardAmount(event.target.value)} />
+                  <input placeholder="Amount" value={rewardAmount} onChange={(event) => setRewardAmount(event.target.value)} />
                 </label>
               </div>
               <label className="field">
                 Luma whitelist emails
                 <textarea
+                  placeholder="Paste emails"
                   value={whitelistEmails}
                   onChange={(event) => setWhitelistEmails(event.target.value)}
                 />

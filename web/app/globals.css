@@ -604,7 +604,10 @@ h1 {
 .themeLight .historyList div,
 .themeLight .sharePanel,
 .themeLight .previewCard,
-.themeLight .feePanel {
+.themeLight .feePanel,
+.themeLight .settingsPanel,
+.themeLight .settingRow,
+.themeLight .toggleRow {
   background: rgba(255, 255, 255, 0.78);
 }
 
@@ -940,6 +943,111 @@ h1 {
 .field input:disabled {
   opacity: 0.72;
   cursor: default;
+}
+
+.settingsPanel {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.055);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.settingsTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settingsTitle svg {
+  color: var(--green);
+}
+
+.settingRow,
+.toggleRow {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.settingRow strong,
+.toggleRow strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.settingRow span,
+.toggleRow em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.miniSwitch {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.miniSwitch button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.miniSwitch button.active {
+  color: #07100b;
+  background: linear-gradient(135deg, var(--green), var(--mint));
+}
+
+.toggleRow {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.toggleRow input {
+  appearance: none;
+  width: 46px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.12);
+  position: relative;
+  cursor: pointer;
+}
+
+.toggleRow input::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--muted);
+  top: 2px;
+  left: 2px;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.toggleRow input:checked {
+  background: rgba(140, 255, 122, 0.18);
+  border-color: rgba(140, 255, 122, 0.4);
+}
+
+.toggleRow input:checked::after {
+  transform: translateX(20px);
+  background: var(--green);
 }
 
 @keyframes menuSlideIn {

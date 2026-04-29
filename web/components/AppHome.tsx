@@ -14,8 +14,8 @@ import {
   QrCode,
   Save,
   SearchCheck,
-  Share2,
   Star,
+  Settings,
   Sun,
   TicketCheck,
   User,
@@ -60,6 +60,9 @@ export function AppHome() {
   const [displayName, setDisplayName] = useState('EZRATE User')
   const [profileEmail, setProfileEmail] = useState('')
   const [isEditingProfile, setIsEditingProfile] = useState(false)
+  const [rewardAlerts, setRewardAlerts] = useState(true)
+  const [reviewReminders, setReviewReminders] = useState(true)
+  const [showWalletPublicly, setShowWalletPublicly] = useState(false)
 
   const activeEvent = events[activeEventIndex]
   const appBaseUrl = typeof window === 'undefined' ? '' : window.location.origin
@@ -73,6 +76,7 @@ export function AppHome() {
     const savedProfile = window.localStorage.getItem('ezrate-profile')
     const savedTheme = window.localStorage.getItem('ezrate-theme') as Theme | null
     const savedRole = window.localStorage.getItem('ezrate-role') as Role | null
+    const savedSettings = window.localStorage.getItem('ezrate-settings')
 
     if (savedTheme === 'dark' || savedTheme === 'light') setTheme(savedTheme)
     if (savedRole === 'organizer' || savedRole === 'reviewer') setRole(savedRole)
@@ -85,6 +89,21 @@ export function AppHome() {
     } catch {
       window.localStorage.removeItem('ezrate-profile')
     }
+
+    if (!savedSettings) return
+
+    try {
+      const settings = JSON.parse(savedSettings) as {
+        rewardAlerts?: boolean
+        reviewReminders?: boolean
+        showWalletPublicly?: boolean
+      }
+      setRewardAlerts(settings.rewardAlerts ?? true)
+      setReviewReminders(settings.reviewReminders ?? true)
+      setShowWalletPublicly(settings.showWalletPublicly ?? false)
+    } catch {
+      window.localStorage.removeItem('ezrate-settings')
+    }
   }, [])
 
   useEffect(() => {
@@ -94,6 +113,13 @@ export function AppHome() {
   useEffect(() => {
     window.localStorage.setItem('ezrate-role', role)
   }, [role])
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      'ezrate-settings',
+      JSON.stringify({ rewardAlerts, reviewReminders, showWalletPublicly })
+    )
+  }, [rewardAlerts, reviewReminders, showWalletPublicly])
 
   useEffect(() => {
     if (events.length < 2 || view !== 'home') return
@@ -217,6 +243,17 @@ export function AppHome() {
     window.setTimeout(() => setCopiedText(null), 1600)
   }
 
+  function resetLocalData() {
+    window.localStorage.removeItem('ezrate-profile')
+    window.localStorage.removeItem('ezrate-settings')
+    setDisplayName('EZRATE User')
+    setProfileEmail('')
+    setRewardAlerts(true)
+    setReviewReminders(true)
+    setShowWalletPublicly(false)
+    setIsEditingProfile(false)
+  }
+
   const rewardSummary = useMemo(() => {
     if (!activeEvent || activeEvent.rewardMode === 'none') return 'No reward'
     return `${activeEvent.rewardAmount} ${activeEvent.rewardAsset} · ${activeEvent.rewardMode}`
@@ -231,14 +268,6 @@ export function AppHome() {
             <span>{role === 'organizer' ? 'Organizer' : 'Reviewer'} mode</span>
           </div>
           <div className="topActions">
-            <button
-              className="iconButton"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              type="button"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
             {isConnected ? (
               <button className="authChip" onClick={() => open()} type="button">
                 {address?.slice(0, 4)}...{address?.slice(-4)}
@@ -488,7 +517,7 @@ export function AppHome() {
                   <User size={22} />
                   <div>
                     <strong>{displayName}</strong>
-                    <span>{address || 'Wallet not connected'}</span>
+                    <span>{showWalletPublicly ? address || 'Wallet not connected' : 'Wallet hidden on profile'}</span>
                   </div>
                 </div>
                 <div className="profileEdit">
@@ -509,6 +538,64 @@ export function AppHome() {
                       Edit profile <Edit3 size={18} />
                     </button>
                   )}
+                </div>
+                <div className="settingsPanel">
+                  <div className="settingsTitle">
+                    <Settings size={18} />
+                    <strong>Settings</strong>
+                  </div>
+                  <div className="settingRow">
+                    <div>
+                      <strong>Theme</strong>
+                      <span>{theme === 'dark' ? 'Dark mode' : 'Light mode'}</span>
+                    </div>
+                    <div className="miniSwitch">
+                      <button className={theme === 'dark' ? 'active' : ''} onClick={() => setTheme('dark')} type="button">
+                        <Moon size={16} /> Dark
+                      </button>
+                      <button className={theme === 'light' ? 'active' : ''} onClick={() => setTheme('light')} type="button">
+                        <Sun size={16} /> Light
+                      </button>
+                    </div>
+                  </div>
+                  <div className="settingRow">
+                    <div>
+                      <strong>Default role</strong>
+                      <span>{role === 'organizer' ? 'Organizer dashboard first' : 'Reviewer dashboard first'}</span>
+                    </div>
+                    <div className="miniSwitch">
+                      <button className={role === 'organizer' ? 'active' : ''} onClick={() => setRole('organizer')} type="button">
+                        EO
+                      </button>
+                      <button className={role === 'reviewer' ? 'active' : ''} onClick={() => setRole('reviewer')} type="button">
+                        User
+                      </button>
+                    </div>
+                  </div>
+                  <label className="toggleRow">
+                    <span>
+                      <strong>Reward alerts</strong>
+                      <em>Notify when a reward is won or claimable.</em>
+                    </span>
+                    <input checked={rewardAlerts} onChange={(event) => setRewardAlerts(event.target.checked)} type="checkbox" />
+                  </label>
+                  <label className="toggleRow">
+                    <span>
+                      <strong>Review reminders</strong>
+                      <em>Remind me when a passcode review window opens.</em>
+                    </span>
+                    <input checked={reviewReminders} onChange={(event) => setReviewReminders(event.target.checked)} type="checkbox" />
+                  </label>
+                  <label className="toggleRow">
+                    <span>
+                      <strong>Show wallet</strong>
+                      <em>Display wallet address in profile surfaces.</em>
+                    </span>
+                    <input checked={showWalletPublicly} onChange={(event) => setShowWalletPublicly(event.target.checked)} type="checkbox" />
+                  </label>
+                  <button className="button quiet" onClick={resetLocalData} type="button">
+                    Reset local profile
+                  </button>
                 </div>
                 <div className="historyList">
                   <div>

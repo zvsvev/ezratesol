@@ -32,6 +32,10 @@ npm run dev
 
 Open `http://localhost:3000` for the landing page and `http://localhost:3000/app` for the app view.
 
+## Deploy Online
+
+Use [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md) for a step-by-step Vercel deployment guide.
+
 ## Solana Program
 
 ```bash

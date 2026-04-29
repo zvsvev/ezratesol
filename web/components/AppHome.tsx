@@ -111,7 +111,7 @@ export function AppHome() {
           <appkit-button />
         </header>
 
-        <div className="appContent">
+        <div className="appContent" key={view}>
           {view === 'home' ? (
             <>
               <section className="balancePanel">

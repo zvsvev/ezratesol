@@ -342,6 +342,8 @@ h1 {
   flex: 1;
   align-content: start;
   overflow: auto;
+  animation: menuSlideIn 240ms ease-out both;
+  will-change: opacity, transform;
 }
 
 .balancePanel,
@@ -455,6 +457,14 @@ h1 {
 .tab.active {
   color: var(--green);
   font-weight: 850;
+}
+
+.tab svg {
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.tab.active svg {
+  transform: translateY(-2px) scale(1.06);
 }
 
 .reviewPanel,
@@ -620,6 +630,28 @@ h1 {
 .historyList {
   display: grid;
   gap: 10px;
+}
+
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appContent {
+    animation: none;
+  }
+
+  .tab svg {
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {

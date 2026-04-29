@@ -264,7 +264,7 @@ export function AppHome() {
       <section className="phoneShell" aria-label="EZRATE mobile app">
         <header className="appTop">
           <div className="appTitle">
-            <strong>EZRATE</strong>
+            <strong><img src="/ezrate-logo.svg" alt="" /> EZRATE</strong>
             <span>{role === 'organizer' ? 'Organizer' : 'Reviewer'} mode</span>
           </div>
           <div className="topActions">
@@ -283,7 +283,7 @@ export function AppHome() {
         {!isConnected ? (
           <div className="appContent authContent">
             <section className="authGate">
-              <div className="authMark">EZ</div>
+              <img className="authLogo" src="/ezrate-logo.svg" alt="EZRATE" />
               <h2>SIGN IN OR REGISTER</h2>
               <p>Access event creation, passcodes, review history, and reward notifications.</p>
               <button className="button" onClick={() => open()} type="button">
@@ -295,14 +295,6 @@ export function AppHome() {
           <div className="appContent" key={view}>
             {view === 'home' && (
               <>
-                <div className="segmented">
-                  {(['organizer', 'reviewer'] as const).map((item) => (
-                    <button className={role === item ? 'active' : ''} key={item} onClick={() => setRole(item)} type="button">
-                      {item}
-                    </button>
-                  ))}
-                </div>
-
                 <section className="balancePanel">
                   <span>{role === 'organizer' ? 'Organizer credits' : 'Reviewer status'}</span>
                   <strong>{role === 'organizer' ? '120 reviews' : '3 reviews'}</strong>

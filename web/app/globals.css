@@ -1,15 +1,20 @@
 :root {
   --ink: #f7fff8;
-  --muted: #8fa29b;
-  --line: rgba(199, 255, 212, 0.14);
-  --paper: #050706;
-  --surface: rgba(12, 20, 17, 0.78);
-  --surface-strong: #101a16;
-  --green: #8cff7a;
-  --mint: #37f6c3;
-  --blue: #8ea7ff;
-  --coral: #ff6b57;
-  --gold: #ffd166;
+  --muted: #aaa2d7;
+  --line: rgba(196, 181, 253, 0.18);
+  --paper: #0b071e;
+  --surface: rgba(30, 27, 75, 0.78);
+  --surface-strong: #1e1b4b;
+  --green: #f5c242;
+  --mint: #c4b5fd;
+  --blue: #4f2dc9;
+  --coral: #8b5cf6;
+  --gold: #f5c242;
+  --logo-deep: #0b071e;
+  --logo-indigo: #1e1b4b;
+  --logo-violet: #4f2dc9;
+  --logo-lavender: #c4b5fd;
+  --logo-gold: #f5c242;
 }
 
 * {
@@ -46,9 +51,9 @@ a {
   min-height: 100vh;
   color: white;
   background:
-    radial-gradient(circle at 80% 12%, rgba(140, 255, 122, 0.22), transparent 26%),
-    radial-gradient(circle at 14% 28%, rgba(55, 246, 195, 0.18), transparent 32%),
-    linear-gradient(135deg, rgba(5, 7, 6, 0.78), rgba(5, 7, 6, 0.92)),
+    radial-gradient(circle at 80% 12%, rgba(245, 194, 66, 0.22), transparent 26%),
+    radial-gradient(circle at 14% 28%, rgba(196, 181, 253, 0.18), transparent 32%),
+    linear-gradient(135deg, rgba(30, 27, 75, 0.82), rgba(11, 7, 30, 0.94)),
     url('/hero-event.svg') center / cover no-repeat;
 }
 
@@ -63,10 +68,17 @@ a {
   font-weight: 950;
   font-size: 24px;
   letter-spacing: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.brand span {
-  color: var(--green);
+.brand img,
+.appTitle strong img {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 .navlinks {
@@ -79,7 +91,7 @@ a {
 .iconButton {
   border: 0;
   background: linear-gradient(135deg, var(--green), var(--mint));
-  color: #06100b;
+  color: #120d2f;
   min-height: 44px;
   border-radius: 8px;
   padding: 0 16px;
@@ -89,12 +101,12 @@ a {
   gap: 8px;
   cursor: pointer;
   font-weight: 850;
-  box-shadow: 0 14px 38px rgba(55, 246, 195, 0.18);
+  box-shadow: 0 14px 38px rgba(245, 194, 66, 0.18);
 }
 
 .button.secondary {
   background: white;
-  color: #07100b;
+  color: #120d2f;
 }
 
 .button.ghost,
@@ -141,7 +153,7 @@ a {
   padding: 8px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(140, 255, 122, 0.08);
+  background: rgba(245, 194, 66, 0.10);
 }
 
 h1 {
@@ -155,7 +167,7 @@ h1 {
   max-width: 640px;
   font-size: 20px;
   line-height: 1.58;
-  color: #d9eee4;
+  color: #e6defe;
 }
 
 .heroActions {
@@ -171,7 +183,7 @@ h1 {
   border-radius: 28px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent),
-    rgba(8, 15, 12, 0.82);
+    rgba(30, 27, 75, 0.78);
   box-shadow: 0 28px 100px rgba(0, 0, 0, 0.42);
   padding: 22px;
   display: grid;
@@ -195,7 +207,7 @@ h1 {
 .mockPill,
 .eventBadge {
   border: 1px solid var(--line);
-  background: rgba(140, 255, 122, 0.1);
+  background: rgba(245, 194, 66, 0.12);
   color: var(--green);
   border-radius: 999px;
   padding: 7px 10px;
@@ -251,10 +263,10 @@ h1 {
 .mockCommit {
   justify-content: flex-start;
   padding: 14px;
-  background: rgba(55, 246, 195, 0.1);
-  border: 1px solid rgba(55, 246, 195, 0.24);
+  background: rgba(196, 181, 253, 0.12);
+  border: 1px solid rgba(196, 181, 253, 0.28);
   border-radius: 8px;
-  color: #caffed;
+  color: #efe9ff;
   font-weight: 800;
 }
 
@@ -262,11 +274,11 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background: #17221d;
+  background: #1e1b4b;
 }
 
 .proofItem {
-  background: #0a100d;
+  background: #0f0a2a;
   padding: 32px clamp(20px, 4vw, 48px);
 }
 
@@ -285,21 +297,21 @@ h1 {
 .phonePage {
   min-height: 100dvh;
   background:
-    radial-gradient(circle at 50% 0%, rgba(140, 255, 122, 0.16), transparent 28%),
-    linear-gradient(180deg, #07100c, #020302);
+    radial-gradient(circle at 50% 0%, rgba(245, 194, 66, 0.16), transparent 28%),
+    linear-gradient(180deg, #1e1b4b, #0b071e);
   display: grid;
   place-items: center;
   padding: 20px;
 }
 
 .themeLight {
-  color: #0d1712;
+  color: #17113a;
   background:
-    radial-gradient(circle at 50% 0%, rgba(55, 246, 195, 0.28), transparent 28%),
-    linear-gradient(180deg, #eef8f1, #dfe9e4);
-  --ink: #0d1712;
-  --muted: #53635c;
-  --line: rgba(15, 38, 28, 0.16);
+    radial-gradient(circle at 50% 0%, rgba(245, 194, 66, 0.22), transparent 28%),
+    linear-gradient(180deg, #f7f3ff, #ebe5ff);
+  --ink: #17113a;
+  --muted: #655b91;
+  --line: rgba(79, 45, 201, 0.16);
   --surface: rgba(255, 255, 255, 0.82);
 }
 
@@ -307,7 +319,7 @@ h1 {
   width: min(430px, 100vw - 24px);
   height: min(880px, calc(100dvh - 40px));
   max-height: calc(100dvh - 40px);
-  background: #07100c;
+  background: #0b071e;
   border: 1px solid var(--line);
   border-radius: 30px;
   overflow: hidden;
@@ -357,6 +369,9 @@ h1 {
 
 .appTitle strong {
   font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .appTitle span {
@@ -367,9 +382,9 @@ h1 {
 .authChip {
   min-height: 36px;
   max-width: 132px;
-  border: 1px solid rgba(140, 255, 122, 0.28);
+  border: 1px solid rgba(245, 194, 66, 0.28);
   border-radius: 999px;
-  background: rgba(140, 255, 122, 0.1);
+  background: rgba(245, 194, 66, 0.12);
   color: var(--green);
   padding: 0 12px;
   font-size: 11px;
@@ -417,26 +432,21 @@ h1 {
   line-height: 1.5;
 }
 
-.authMark {
+.authLogo {
   width: 82px;
   height: 82px;
   border-radius: 24px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, var(--green), var(--mint));
-  color: #06100b;
-  font-size: 28px;
-  font-weight: 950;
-  box-shadow: 0 18px 55px rgba(55, 246, 195, 0.24);
+  object-fit: cover;
+  box-shadow: 0 18px 55px rgba(196, 181, 253, 0.28);
 }
 
 .balancePanel,
 .eventHeroCard {
   background:
-    radial-gradient(circle at 85% 18%, rgba(140, 255, 122, 0.28), transparent 34%),
-    linear-gradient(135deg, #102318, #09120e);
+    radial-gradient(circle at 85% 18%, rgba(245, 194, 66, 0.25), transparent 34%),
+    linear-gradient(135deg, #2b236b, #110c2d);
   color: white;
-  border: 1px solid rgba(140, 255, 122, 0.18);
+  border: 1px solid rgba(245, 194, 66, 0.18);
   border-radius: 18px;
   padding: 20px;
   display: grid;
@@ -446,9 +456,9 @@ h1 {
 .themeLight .balancePanel,
 .themeLight .eventHeroCard {
   background:
-    radial-gradient(circle at 85% 18%, rgba(55, 246, 195, 0.28), transparent 34%),
-    linear-gradient(135deg, #ffffff, #e9f5ee);
-  color: #0d1712;
+    radial-gradient(circle at 85% 18%, rgba(245, 194, 66, 0.28), transparent 34%),
+    linear-gradient(135deg, #ffffff, #f0eaff);
+  color: #17113a;
 }
 
 .balancePanel span,
@@ -474,7 +484,7 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 18px;
   overflow: hidden;
-  background: #0b1510;
+  background: #151038;
 }
 
 .eventBanner img {
@@ -508,7 +518,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  color: #d4e6dc;
+  color: #e6defe;
   font-size: 12px;
 }
 
@@ -547,7 +557,7 @@ h1 {
   display: grid;
   place-items: center;
   gap: 6px;
-  color: #cfe0d8;
+  color: #e6defe;
   font-size: 12px;
   font-weight: 800;
   cursor: pointer;
@@ -581,7 +591,7 @@ h1 {
 .sectionTitle {
   font-size: 15px;
   margin: 8px 0 0;
-  color: #eaffef;
+  color: #fff7d7;
 }
 
 .eventCard {
@@ -634,7 +644,7 @@ h1 {
   border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: #080f0b;
+  background: #100b2d;
 }
 
 .tab {
@@ -781,7 +791,7 @@ h1 {
   gap: 6px;
   font-size: 14px;
   font-weight: 800;
-  color: #eaffef;
+  color: #fff7d7;
 }
 
 .field input,
@@ -805,8 +815,8 @@ h1 {
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
-  border-color: rgba(140, 255, 122, 0.5);
-  box-shadow: 0 0 0 3px rgba(140, 255, 122, 0.1);
+  border-color: rgba(245, 194, 66, 0.52);
+  box-shadow: 0 0 0 3px rgba(245, 194, 66, 0.12);
 }
 
 .field textarea {
@@ -825,7 +835,7 @@ h1 {
   border-radius: 12px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.06);
-  color: #7e9089;
+  color: #8f86bd;
   cursor: pointer;
 }
 
@@ -838,9 +848,9 @@ h1 {
 .notice {
   padding: 12px;
   border-radius: 12px;
-  background: rgba(55, 246, 195, 0.11);
-  color: #caffed;
-  border: 1px solid rgba(55, 246, 195, 0.24);
+  background: rgba(196, 181, 253, 0.12);
+  color: #efe9ff;
+  border: 1px solid rgba(196, 181, 253, 0.28);
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -880,7 +890,7 @@ h1 {
 }
 
 .segmented button.active {
-  color: #07100b;
+  color: #120d2f;
   background: linear-gradient(135deg, var(--green), var(--mint));
 }
 
@@ -1008,7 +1018,7 @@ h1 {
 }
 
 .miniSwitch button.active {
-  color: #07100b;
+  color: #120d2f;
   background: linear-gradient(135deg, var(--green), var(--mint));
 }
 
@@ -1041,8 +1051,8 @@ h1 {
 }
 
 .toggleRow input:checked {
-  background: rgba(140, 255, 122, 0.18);
-  border-color: rgba(140, 255, 122, 0.4);
+  background: rgba(245, 194, 66, 0.18);
+  border-color: rgba(245, 194, 66, 0.42);
 }
 
 .toggleRow input:checked::after {

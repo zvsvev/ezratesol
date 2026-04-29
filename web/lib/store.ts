@@ -21,13 +21,21 @@ async function loadDb(): Promise<Database> {
     return normalizeDb(await readJson(runtimePath))
   } catch {
     const seed = normalizeDb(await readJson(seedPath))
-    await fs.writeFile(runtimePath, JSON.stringify(seed, null, 2))
+    try {
+      await fs.writeFile(runtimePath, JSON.stringify(seed, null, 2))
+    } catch {
+      // Vercel's filesystem is read-only at runtime. The seed data still works for the MVP.
+    }
     return seed
   }
 }
 
 async function saveDb(db: Database) {
-  await fs.writeFile(runtimePath, JSON.stringify(db, null, 2))
+  try {
+    await fs.writeFile(runtimePath, JSON.stringify(db, null, 2))
+  } catch {
+    // Local JSON persistence is best-effort until Supabase is connected.
+  }
 }
 
 export function sha256Hex(value: string) {
@@ -41,27 +49,58 @@ function normalizeDb(db: Database): Database {
     'zk-meetup-afterhours': '/banners/zk-afterhours.svg'
   }
 
+  const normalizedEvents: EventRecord[] = db.events.map((event) => {
+    const isDemoEvent = event.slug === 'solana-builder-night'
+    const endsAt = isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.endsAt || event.startsAt || new Date().toISOString()
+    return {
+      ...event,
+      endsAt,
+      bannerImage: event.bannerImage || bannerBySlug[event.slug] || '/banners/solana-night.svg',
+      passcode: isDemoEvent ? 'solananight52' : event.passcode || makePasscode(event.name),
+      reviewOpensAt: isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.reviewOpensAt || endsAt,
+      reviewClosesAt:
+        isDemoEvent
+          ? '2026-04-29T12:00:00.000Z'
+          : event.reviewClosesAt || new Date(new Date(endsAt).getTime() + 24 * 60 * 60 * 1000).toISOString(),
+      rewardMode: isDemoEvent ? 'random' : event.rewardMode || 'none',
+      rewardAsset: isDemoEvent ? 'USDC' : event.rewardAsset || 'SOL',
+      rewardAmount: isDemoEvent ? '100' : event.rewardAmount || '',
+      creationFeeStatus: event.creationFeeStatus || 'paid'
+    }
+  })
+
+  if (!normalizedEvents.some((event) => event.slug === 'solana-builder-night')) {
+    normalizedEvents.unshift(demoEvent())
+  }
+
   return {
     ...db,
-    events: db.events.map((event) => {
-      const isDemoEvent = event.slug === 'solana-builder-night'
-      const endsAt = isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.endsAt || event.startsAt || new Date().toISOString()
-      return {
-        ...event,
-        endsAt,
-        bannerImage: event.bannerImage || bannerBySlug[event.slug] || '/banners/solana-night.svg',
-        passcode: isDemoEvent ? 'solananight52' : event.passcode || makePasscode(event.name),
-        reviewOpensAt: isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.reviewOpensAt || endsAt,
-        reviewClosesAt:
-          isDemoEvent
-            ? '2026-04-29T12:00:00.000Z'
-            : event.reviewClosesAt || new Date(new Date(endsAt).getTime() + 24 * 60 * 60 * 1000).toISOString(),
-        rewardMode: isDemoEvent ? 'random' : event.rewardMode || 'none',
-        rewardAsset: isDemoEvent ? 'USDC' : event.rewardAsset || 'SOL',
-        rewardAmount: isDemoEvent ? '100' : event.rewardAmount || '',
-        creationFeeStatus: event.creationFeeStatus || 'paid'
-      }
-    })
+    events: normalizedEvents
+  }
+}
+
+function demoEvent(): EventRecord {
+  return {
+    id: 'evt_builder_night',
+    slug: 'solana-builder-night',
+    name: 'Solana Builder Night',
+    location: 'Jakarta',
+    startsAt: '2026-04-28T10:00:00.000Z',
+    endsAt: '2026-04-28T12:00:00.000Z',
+    organizer: 'EZRATE Labs',
+    maxReviews: 120,
+    passcode: 'solananight52',
+    bannerImage: '/banners/solana-night.svg',
+    reviewOpensAt: '2026-04-28T12:00:00.000Z',
+    reviewClosesAt: '2026-04-29T12:00:00.000Z',
+    rewardMode: 'random',
+    rewardAsset: 'USDC',
+    rewardAmount: '100',
+    creationFeeStatus: 'paid',
+    whitelistEmails: ['alice@example.com', 'builder@example.com', 'demo@ezrate.fun'],
+    averageRating: 4.8,
+    reviewCount: 36,
+    onchainEvent: 'pending-devnet-deploy'
   }
 }
 
@@ -86,6 +125,13 @@ export async function getEvent(slug: string) {
 export async function getEventByPasscode(passcode: string) {
   const db = await loadDb()
   const normalizedPasscode = passcode.trim().toLowerCase()
+  if (normalizedPasscode === 'solananight52') {
+    const event = db.events.find((item) => item.slug === 'solana-builder-night') || demoEvent()
+    return {
+      ...event,
+      whitelistEmails: []
+    }
+  }
   const event = db.events.find((item) => item.passcode.toLowerCase() === normalizedPasscode)
   if (!event) return null
   return {

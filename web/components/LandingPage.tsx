@@ -6,7 +6,8 @@ export function LandingPage() {
       <main className="landing">
         <nav className="nav" aria-label="Main navigation">
           <a className="brand" href="/">
-            <span>EZ</span>RATE
+            <img src="/ezrate-logo.svg" alt="" />
+            EZRATE
           </a>
           <div className="navlinks">
             <a className="button secondary" href="/app">

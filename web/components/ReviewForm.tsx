@@ -55,7 +55,7 @@ export function ReviewForm({ event }: { event: EventRecord }) {
           <ArrowLeft size={20} />
         </a>
         <div className="appTitle centered">
-          <strong>Review</strong>
+          <strong><img src="/ezrate-logo.svg" alt="" /> Review</strong>
           <span>Verified attendee</span>
         </div>
         {isConnected ? (

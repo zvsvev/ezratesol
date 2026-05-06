@@ -141,10 +141,21 @@ export async function getEventByPasscode(passcode: string) {
 }
 
 function makeSlug(name: string) {
-  return name
+  const base = name
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '')
+  return base || 'event'
+}
+
+function makeUniqueSlug(name: string, existingSlugs: Set<string>) {
+  const base = makeSlug(name)
+  if (!existingSlugs.has(base)) return base
+  for (let i = 2; i < 1000; i++) {
+    const candidate = `${base}-${i}`
+    if (!existingSlugs.has(candidate)) return candidate
+  }
+  return `${base}-${Date.now()}`
 }
 
 function makePasscode(name: string) {
@@ -166,7 +177,7 @@ export async function createEvent(input: {
   whitelistEmails: string[]
 }) {
   const db = await loadDb()
-  const slug = makeSlug(input.name)
+  const slug = makeUniqueSlug(input.name, new Set(db.events.map((event) => event.slug)))
   const endsAt = new Date(input.endsAt)
   const reviewClosesAt = new Date(endsAt.getTime() + 24 * 60 * 60 * 1000)
   const event: EventRecord = {

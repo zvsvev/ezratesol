@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ArrowRight, BadgeCheck, ShieldCheck, Sparkles, Star, TicketCheck, WalletCards } from 'lucide-react'
 
 export function LandingPage() {
@@ -5,10 +6,10 @@ export function LandingPage() {
     <>
       <main className="landing">
         <nav className="nav" aria-label="Main navigation">
-          <a className="brand" href="/">
+          <Link className="brand" href="/">
             <img src="/ezrate-logo.svg" alt="" />
             EZRATE
-          </a>
+          </Link>
           <div className="navlinks">
             <a className="button secondary" href="/app">
               Launch App <ArrowRight size={18} />

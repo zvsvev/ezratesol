@@ -2,7 +2,7 @@
 
 On-chain event reviews for Solana.
 
-EZRATE lets event organizers create a review page, whitelist attendee emails, and collect tamper-resistant ratings. Discovery, comments, and whitelist checks run through the web app, while the Solana program stores event counters and immutable review commitments.
+EZRATE is a post-event trust and reputation layer for Web3 communities. Organizers create review campaigns, verify attendee eligibility, and collect tamper-resistant ratings. Eligibility checks and UX live in the web app, while the Solana program stores event-level counters and immutable review commitments.
 
 ## Monorepo
 
@@ -13,7 +13,7 @@ web/               Next.js app, API routes, Reown AppKit integration
 
 ## Architecture
 
-- On-chain: event account, review account, rating, comment hash, reviewer identity hash, duplicate prevention with PDA seeds.
+- On-chain: event id/account, review commitment hash, rating record, timestamp, and anti-duplicate nullifier via PDA seeds.
 - Backend: Next.js API routes. The current local build reads/writes JSON in `web/data`; production persistence should use Supabase, Turso, Neon, or Upstash.
 - Frontend: one Next.js app with host-aware homepages.
   - `ezrate.fun` renders the landing page.
@@ -21,7 +21,7 @@ web/               Next.js app, API routes, Reown AppKit integration
   - `create.ezrate.fun` renders the desktop event organizer portal.
   - `app.ezrate.fun/[username]` renders a public organizer profile.
   - Local fallback routes: `/` for landing, `/app` for user app, `/create` for organizer portal.
-- Login/wallet: Reown AppKit Solana adapter. The UI is wired for AppKit and keeps email capture explicit because Google identity verification depends on your Reown Cloud/Auth configuration.
+- Login/wallet: Reown AppKit Solana adapter with Google, X, and Discord social onboarding support.
 
 ## Quick Start
 
@@ -65,10 +65,10 @@ This matches Solana's fee model: programs cannot pay the network fee before exec
 
 ## Pitch Demo Flow
 
-1. Organizer opens the desktop portal, registers company name and username once, buys credits, then creates an event with max reviews and an email whitelist.
-2. Attendee opens `/event/solana-builder-night`, connects with Reown, enters the same email, and submits a rating plus a 100+ character review.
-3. API checks whitelist and duplicate status, hashes the email/comment, and records the pending review commitment.
-4. Solana relayer integration submits the commitment to the Quasar program on devnet.
+1. Organizer opens the desktop portal, registers company name and username once, then creates an event review campaign.
+2. Attendee opens `/event/solana-builder-night`, signs in (wallet/social), completes eligibility check (allowlist/passcode/check-in), and submits one rating + short review.
+3. API checks eligibility + duplicate status, hashes reviewer identity/comment, and records a pending review commitment.
+4. Solana relayer submits the commitment on-chain so the event has auditable, tamper-resistant proof.
 
 ## Production Notes
 

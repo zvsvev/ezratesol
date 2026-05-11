@@ -1,5 +1,5 @@
-import { AppHome } from '@/components/AppHome'
+import { OrganizerPortal } from '@/components/OrganizerPortal'
 
 export default function CreatePage() {
-  return <AppHome mode="organizer" />
+  return <OrganizerPortal />
 }

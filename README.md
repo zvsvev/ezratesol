@@ -18,8 +18,9 @@ web/               Next.js app, API routes, Reown AppKit integration
 - Frontend: one Next.js app with host-aware homepages.
   - `ezrate.fun` renders the landing page.
   - `app.ezrate.fun` renders the regular user review app.
-  - `create.ezrate.fun` renders the event organizer app.
-  - Local fallback routes: `/` for landing, `/app` for user app, `/create` for organizer app.
+  - `event.ezrate.fun` renders the desktop event organizer portal.
+  - `app.ezrate.fun/[username]` renders a public organizer profile.
+  - Local fallback routes: `/` for landing, `/app` for user app, `/create` for organizer portal.
 - Login/wallet: Reown AppKit Solana adapter. The UI is wired for AppKit and keeps email capture explicit for the MVP because Google identity verification depends on your Reown Cloud/Auth configuration.
 
 ## Quick Start
@@ -64,7 +65,7 @@ This matches Solana's fee model: programs cannot pay the network fee before exec
 
 ## Pitch Demo Flow
 
-1. Organizer opens the app view and creates an event with max reviews and a Luma email whitelist.
+1. Organizer opens the desktop portal, registers company name and username once, buys credits, then creates an event with max reviews and a Luma email whitelist.
 2. Attendee opens `/event/solana-builder-night`, connects with Reown, enters the same email, and submits a rating plus a 100+ character review.
 3. API checks whitelist and duplicate status, hashes the email/comment, and records the pending review commitment.
 4. Solana relayer integration submits the commitment to the Quasar program on devnet.

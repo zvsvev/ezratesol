@@ -367,7 +367,7 @@ export function AppHome({ mode = 'reviewer' }: { mode?: Role }) {
                   <button className="quickAction" onClick={() => setView('user')} type="button">
                     <img src="/icons/ezrate-icon-04.png" alt="" /> Profile
                   </button>
-                  <a className="quickAction" href={role === 'organizer' ? 'https://app.ezrate.fun' : 'https://create.ezrate.fun'}>
+                  <a className="quickAction" href={role === 'organizer' ? 'https://app.ezrate.fun' : 'https://event.ezrate.fun'}>
                     <img src={role === 'organizer' ? '/icons/ezrate-icon-00.png' : '/icons/ezrate-icon-03.png'} alt="" /> {role === 'organizer' ? 'User App' : 'Create'}
                   </a>
                 </div>

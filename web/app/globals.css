@@ -1030,6 +1030,428 @@ h1 {
   transform: translateY(-2px) scale(1.06);
 }
 
+.eoPage,
+.publicOrgPage {
+  min-height: 100dvh;
+  background: #fcfcfc;
+  color: #154bf9;
+}
+
+.eoNav,
+.publicOrgNav {
+  min-height: 82px;
+  padding: 20px clamp(20px, 5vw, 72px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid rgba(21, 75, 249, 0.12);
+  background: rgba(252, 252, 252, 0.86);
+  backdrop-filter: blur(18px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.eoNavActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 850;
+}
+
+.eoAuth,
+.eoOnboarding,
+.eoWorkspace,
+.publicOrgMissing,
+.publicOrgHero,
+.publicOrgSections,
+.publicOrgCta {
+  padding: clamp(44px, 6vw, 84px) clamp(20px, 5vw, 72px);
+}
+
+.eoAuth {
+  min-height: calc(100dvh - 82px);
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 20px;
+  max-width: 980px;
+}
+
+.eoAuth img {
+  width: 86px;
+  height: 86px;
+  border-radius: 24px;
+}
+
+.eoAuth h1,
+.eoIntro h1,
+.eoHero h1,
+.publicOrgHero h1,
+.publicOrgMissing h1 {
+  margin: 0;
+  font-size: clamp(48px, 7vw, 94px);
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+.eoAuth p,
+.eoIntro p,
+.eoHero p,
+.panelTitle p,
+.creditBalance p,
+.pricingHeader p,
+.priceCard p,
+.publicOrgHero p,
+.publicOrgMissing p,
+.publicOrgSections p,
+.publicOrgCta p {
+  color: rgba(21, 75, 249, 0.72);
+  line-height: 1.55;
+}
+
+.eoOnboarding {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(420px, 0.72fr);
+  gap: clamp(26px, 6vw, 88px);
+  align-items: start;
+}
+
+.eoIntro {
+  position: sticky;
+  top: 118px;
+  display: grid;
+  gap: 16px;
+}
+
+.eoFormCard,
+.eoPanel,
+.creditBalance,
+.pricingModal,
+.publicOrgScore,
+.publicOrgSections article,
+.publicOrgCta {
+  border: 1px solid rgba(21, 75, 249, 0.14);
+  border-radius: 18px;
+  background: rgba(21, 75, 249, 0.035);
+  box-shadow: 0 24px 80px rgba(21, 75, 249, 0.08);
+}
+
+.eoFormCard,
+.eoPanel,
+.creditBalance {
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.eoTwoCol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.eoWorkspace {
+  display: grid;
+  gap: 22px;
+}
+
+.eoHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.4fr);
+  gap: 22px;
+  align-items: stretch;
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: 28px;
+  color: #fcfcfc;
+  background:
+    radial-gradient(circle at 92% 16%, rgba(250, 190, 35, 0.28), transparent 32%),
+    linear-gradient(135deg, #154bf9, #154bf9);
+}
+
+.eoHero p {
+  color: rgba(252, 252, 252, 0.76);
+  max-width: 760px;
+}
+
+.eoProfileActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.creditBalance {
+  background: rgba(252, 252, 252, 0.1);
+  border-color: rgba(252, 252, 252, 0.18);
+  color: #fcfcfc;
+}
+
+.creditBalance span {
+  color: #fabe23;
+  font-weight: 900;
+}
+
+.creditBalance strong {
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.92;
+}
+
+.eoStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.eoStats div,
+.lockedFields div,
+.creditQuote,
+.eoCreated {
+  border: 1px solid rgba(21, 75, 249, 0.14);
+  background: rgba(21, 75, 249, 0.035);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.eoStats span,
+.lockedFields span,
+.creditQuote span,
+.eoCreated span {
+  color: rgba(21, 75, 249, 0.62);
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.eoStats strong,
+.lockedFields strong,
+.creditQuote strong,
+.eoCreated strong {
+  color: #154bf9;
+}
+
+.eoGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.72fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.panelTitle {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.panelTitle svg,
+.creditQuote svg,
+.eoCreated svg {
+  color: #fabe23;
+  flex: 0 0 auto;
+}
+
+.panelTitle h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.lockedFields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.creditQuote,
+.eoCreated {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.creditQuote.ready {
+  border-color: rgba(250, 190, 35, 0.42);
+  background: rgba(250, 190, 35, 0.13);
+}
+
+.eoNotice {
+  max-width: 620px;
+}
+
+.pricingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(4, 13, 44, 0.58);
+  backdrop-filter: blur(14px);
+}
+
+.pricingModal {
+  width: min(1080px, 100%);
+  max-height: calc(100dvh - 48px);
+  overflow: auto;
+  padding: clamp(22px, 4vw, 36px);
+  background: #fcfcfc;
+}
+
+.pricingHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.pricingHeader h2 {
+  margin: 0;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 0.98;
+}
+
+.pricingHeader .iconButton {
+  color: #154bf9;
+  font-size: 30px;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.priceCard {
+  border: 1px solid rgba(21, 75, 249, 0.14);
+  border-radius: 16px;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  background: rgba(21, 75, 249, 0.035);
+}
+
+.priceCard.featured {
+  color: #fcfcfc;
+  background: #154bf9;
+  border-color: #154bf9;
+}
+
+.priceCard span {
+  font-weight: 950;
+  color: #fabe23;
+}
+
+.priceCard strong {
+  font-size: 38px;
+  line-height: 0.96;
+}
+
+.priceCard.featured p {
+  color: rgba(252, 252, 252, 0.76);
+}
+
+.priceCard .button.ghost {
+  color: #154bf9;
+  border-color: rgba(21, 75, 249, 0.18);
+  background: rgba(21, 75, 249, 0.06);
+}
+
+.eoHero .button.ghost {
+  color: #fcfcfc;
+  border-color: rgba(252, 252, 252, 0.2);
+  background: rgba(252, 252, 252, 0.08);
+}
+
+.publicOrgHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.38fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.publicSocials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.publicSocials a,
+.publicSocials span {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(21, 75, 249, 0.14);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: #154bf9;
+  background: rgba(21, 75, 249, 0.035);
+  font-weight: 850;
+}
+
+.publicOrgScore {
+  padding: 24px;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+}
+
+.publicOrgScore > strong {
+  font-size: 96px;
+  line-height: 0.9;
+}
+
+.publicOrgScore div {
+  color: #fabe23;
+  display: flex;
+  gap: 3px;
+}
+
+.publicOrgSections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 0;
+}
+
+.publicOrgSections article {
+  padding: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.publicOrgSections img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.publicOrgSections h2,
+.publicOrgCta h2 {
+  margin: 0;
+}
+
+.publicOrgCta {
+  margin: 0 clamp(20px, 5vw, 72px) clamp(44px, 6vw, 84px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.publicOrgMissing {
+  min-height: calc(100dvh - 82px);
+  display: grid;
+  place-items: start;
+  align-content: center;
+  gap: 16px;
+  max-width: 760px;
+}
+
 .reviewPanel,
 .createPanel {
   width: 100%;
@@ -1548,6 +1970,23 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .eoOnboarding,
+  .eoHero,
+  .eoGrid,
+  .publicOrgHero {
+    grid-template-columns: 1fr;
+  }
+
+  .eoIntro {
+    position: static;
+  }
+
+  .eoStats,
+  .pricingGrid,
+  .publicOrgSections {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .landingCta {
     display: grid;
   }
@@ -1641,6 +2080,79 @@ h1 {
 
   .rewardPanel {
     border-radius: 18px;
+  }
+
+  .eoNav,
+  .publicOrgNav {
+    position: static;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .eoNavActions {
+    display: grid;
+    justify-items: end;
+    gap: 8px;
+  }
+
+  .eoNavActions > a {
+    font-size: 13px;
+  }
+
+  .eoAuth,
+  .eoOnboarding,
+  .eoWorkspace,
+  .publicOrgMissing,
+  .publicOrgHero,
+  .publicOrgSections,
+  .publicOrgCta {
+    padding: 42px 16px;
+  }
+
+  .eoAuth h1,
+  .eoIntro h1,
+  .eoHero h1,
+  .publicOrgHero h1,
+  .publicOrgMissing h1 {
+    font-size: 44px;
+  }
+
+  .eoFormCard,
+  .eoPanel,
+  .creditBalance,
+  .pricingModal {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .eoTwoCol,
+  .lockedFields,
+  .eoStats,
+  .pricingGrid,
+  .publicOrgSections {
+    grid-template-columns: 1fr;
+  }
+
+  .eoHero {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .eoProfileActions,
+  .publicOrgCta {
+    display: grid;
+  }
+
+  .publicOrgCta {
+    margin: 0 16px 42px;
+  }
+
+  .pricingOverlay {
+    padding: 12px;
+  }
+
+  .pricingHeader {
+    display: grid;
   }
 
   .proofStrip {

@@ -25,7 +25,7 @@ git push -u origin main
 4. Add your production domains:
    - `https://ezrate.fun`
    - `https://app.ezrate.fun`
-   - `https://create.ezrate.fun`
+   - `https://event.ezrate.fun`
    - your Vercel preview domain
 5. Copy the project ID.
 
@@ -65,6 +65,7 @@ After the first deploy finishes, open the generated Vercel URL and test:
 
 - Landing page: `/`
 - Mobile app: `/app`
+- Organizer portal: `/create`
 - Demo passcode flow: click `Review`, enter `solananight52`
 - Direct demo review URL: `/event/solana-builder-night`
 
@@ -77,14 +78,14 @@ In Vercel:
 3. Add:
    - `ezrate.fun`
    - `app.ezrate.fun`
-   - `create.ezrate.fun`
+   - `event.ezrate.fun`
 4. Follow Vercel's DNS instructions at your domain registrar.
 
 Recommended routing:
 
 - `ezrate.fun` uses `/` and shows the landing page.
 - `app.ezrate.fun` serves the regular user review app.
-- `create.ezrate.fun` serves the event organizer creation app.
+- `event.ezrate.fun` serves the desktop event organizer portal.
 
 ## 7. MVP Production Notes
 
@@ -102,9 +103,9 @@ Before using real events:
 
 Check that `NEXT_PUBLIC_REOWN_PROJECT_ID` is set in Vercel and that your domain is allowed in Reown Cloud.
 
-### App Shows Landing Page on app.ezrate.fun or create.ezrate.fun
+### App Shows Landing Page on app.ezrate.fun or event.ezrate.fun
 
-Make sure the domain is exactly `app.ezrate.fun` or `create.ezrate.fun`. The app checks whether the host starts with `app.` or `create.`.
+Make sure the domain is exactly `app.ezrate.fun` or `event.ezrate.fun`. The app checks whether the host starts with `app.` or `event.`.
 
 ### Review Passcode Does Not Work
 

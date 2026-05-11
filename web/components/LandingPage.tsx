@@ -7,7 +7,7 @@ export function LandingPage() {
       <main className="landing">
         <nav className="nav" aria-label="Main navigation">
           <Link className="brand" href="/">
-            <img src="/ezrate-logo.svg" alt="" />
+            <img src="/ezrate-logo.png" alt="" />
             EZRATE
           </Link>
           <div className="navlinks">

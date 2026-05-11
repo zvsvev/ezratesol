@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   title: 'EZRATE',
   description: 'On-chain event reviews for Web3 communities',
   icons: {
-    icon: '/icon.svg',
-    apple: '/ezrate-logo.svg'
+    icon: '/icon.png',
+    apple: '/apple-icon.png'
   }
 }
 

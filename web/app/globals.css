@@ -1,20 +1,21 @@
 :root {
   --ink: #fcfcfc;
-  --muted: #8c9ec9;
-  --line: rgba(123, 160, 255, 0.18);
-  --paper: #05091a;
-  --surface: rgba(11, 19, 53, 0.78);
-  --surface-strong: #0b1335;
+  --muted: rgba(252, 252, 252, 0.72);
+  --line: rgba(252, 252, 252, 0.2);
+  --paper: #154bf9;
+  --surface: rgba(252, 252, 252, 0.13);
+  --surface-strong: #154bf9;
   --green: #fabe23;
-  --mint: #7ba0ff;
+  --mint: #fcfcfc;
   --blue: #154bf9;
-  --coral: #4a7bff;
+  --coral: #fabe23;
   --gold: #fabe23;
-  --logo-deep: #05091a;
-  --logo-indigo: #0b1335;
+  --logo-deep: #154bf9;
+  --logo-indigo: #154bf9;
   --logo-violet: #154bf9;
-  --logo-lavender: #7ba0ff;
+  --logo-lavender: #fcfcfc;
   --logo-gold: #fabe23;
+  --text-dark: #154bf9;
 }
 
 * {
@@ -28,7 +29,8 @@ body {
   color: var(--ink);
   background: var(--paper);
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    "Akzidenz-Grotesk", "Akzidenz Grotesk", Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 button,
@@ -51,9 +53,9 @@ a {
   min-height: 100vh;
   color: white;
   background:
-    radial-gradient(circle at 80% 12%, rgba(250, 190, 35, 0.22), transparent 26%),
-    radial-gradient(circle at 14% 28%, rgba(123, 160, 255, 0.18), transparent 32%),
-    linear-gradient(135deg, rgba(11, 19, 53, 0.82), rgba(11, 7, 30, 0.94)),
+    radial-gradient(circle at 80% 12%, rgba(250, 190, 35, 0.32), transparent 26%),
+    radial-gradient(circle at 14% 28%, rgba(252, 252, 252, 0.16), transparent 32%),
+    linear-gradient(135deg, rgba(21, 75, 249, 0.92), rgba(21, 75, 249, 0.98)),
     url('/hero-event.svg') center / cover no-repeat;
 }
 
@@ -90,8 +92,8 @@ a {
 .button,
 .iconButton {
   border: 0;
-  background: linear-gradient(135deg, var(--green), var(--mint));
-  color: #08102a;
+  background: linear-gradient(135deg, var(--green), #fcfcfc);
+  color: var(--text-dark);
   min-height: 44px;
   border-radius: 8px;
   padding: 0 16px;
@@ -105,8 +107,8 @@ a {
 }
 
 .button.secondary {
-  background: white;
-  color: #08102a;
+  background: #fcfcfc;
+  color: var(--text-dark);
 }
 
 .button.ghost,
@@ -167,7 +169,7 @@ h1 {
   max-width: 640px;
   font-size: 20px;
   line-height: 1.58;
-  color: #e5ecff;
+  color: #fcfcfc;
 }
 
 .heroActions {
@@ -266,7 +268,7 @@ h1 {
   background: rgba(123, 160, 255, 0.12);
   border: 1px solid rgba(123, 160, 255, 0.28);
   border-radius: 8px;
-  color: #edf2ff;
+  color: #fcfcfc;
   font-weight: 800;
 }
 
@@ -274,11 +276,11 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background: #0b1335;
+  background: #154bf9;
 }
 
 .proofItem {
-  background: #070d22;
+  background: #154bf9;
   padding: 32px clamp(20px, 4vw, 48px);
 }
 
@@ -298,19 +300,19 @@ h1 {
   min-height: 100dvh;
   background:
     radial-gradient(circle at 50% 0%, rgba(250, 190, 35, 0.16), transparent 28%),
-    linear-gradient(180deg, #0b1335, #05091a);
+    linear-gradient(180deg, #154bf9, #154bf9);
   display: grid;
   place-items: center;
   padding: 20px;
 }
 
 .themeLight {
-  color: #0b1435;
+  color: #154bf9;
   background:
     radial-gradient(circle at 50% 0%, rgba(250, 190, 35, 0.22), transparent 28%),
-    linear-gradient(180deg, #f2f5ff, #e5ecff);
-  --ink: #0b1435;
-  --muted: #5b72a8;
+    linear-gradient(180deg, #fcfcfc, #fcfcfc);
+  --ink: #154bf9;
+  --muted: rgba(21, 75, 249, 0.72);
   --line: rgba(21, 75, 249, 0.16);
   --surface: rgba(255, 255, 255, 0.82);
 }
@@ -319,7 +321,7 @@ h1 {
   width: min(430px, 100vw - 24px);
   height: min(880px, calc(100dvh - 40px));
   max-height: calc(100dvh - 40px);
-  background: #05091a;
+  background: #154bf9;
   border: 1px solid var(--line);
   border-radius: 30px;
   overflow: hidden;
@@ -444,7 +446,7 @@ h1 {
 .eventHeroCard {
   background:
     radial-gradient(circle at 85% 18%, rgba(250, 190, 35, 0.25), transparent 34%),
-    linear-gradient(135deg, #15245c, #08102a);
+    linear-gradient(135deg, #154bf9, #154bf9);
   color: white;
   border: 1px solid rgba(250, 190, 35, 0.18);
   border-radius: 18px;
@@ -457,8 +459,8 @@ h1 {
 .themeLight .eventHeroCard {
   background:
     radial-gradient(circle at 85% 18%, rgba(250, 190, 35, 0.28), transparent 34%),
-    linear-gradient(135deg, #ffffff, #f0eaff);
-  color: #0b1435;
+    linear-gradient(135deg, #fcfcfc, #fcfcfc);
+  color: #154bf9;
 }
 
 .balancePanel span,
@@ -484,7 +486,7 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 18px;
   overflow: hidden;
-  background: #0a1435;
+  background: #154bf9;
 }
 
 .eventBanner img {
@@ -518,7 +520,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  color: #e5ecff;
+  color: #fcfcfc;
   font-size: 12px;
 }
 
@@ -557,7 +559,7 @@ h1 {
   display: grid;
   place-items: center;
   gap: 6px;
-  color: #e5ecff;
+  color: #fcfcfc;
   font-size: 12px;
   font-weight: 800;
   cursor: pointer;
@@ -591,7 +593,7 @@ h1 {
 .sectionTitle {
   font-size: 15px;
   margin: 8px 0 0;
-  color: #fff7d7;
+  color: #fcfcfc;
 }
 
 .eventCard {
@@ -644,7 +646,7 @@ h1 {
   border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: #070f29;
+  background: #154bf9;
 }
 
 .tab {
@@ -791,7 +793,7 @@ h1 {
   gap: 6px;
   font-size: 14px;
   font-weight: 800;
-  color: #fff7d7;
+  color: #fcfcfc;
 }
 
 .field input,
@@ -835,7 +837,7 @@ h1 {
   border-radius: 12px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.06);
-  color: #8f86bd;
+  color: rgba(252, 252, 252, 0.52);
   cursor: pointer;
 }
 
@@ -849,7 +851,7 @@ h1 {
   padding: 12px;
   border-radius: 12px;
   background: rgba(123, 160, 255, 0.12);
-  color: #edf2ff;
+  color: #fcfcfc;
   border: 1px solid rgba(123, 160, 255, 0.28);
   font-size: 14px;
   display: flex;
@@ -863,7 +865,7 @@ h1 {
 
 .error {
   background: rgba(255, 107, 87, 0.12);
-  color: #ffd0ca;
+  color: #fcfcfc;
   border-color: rgba(255, 107, 87, 0.28);
 }
 
@@ -890,7 +892,7 @@ h1 {
 }
 
 .segmented button.active {
-  color: #08102a;
+  color: #154bf9;
   background: linear-gradient(135deg, var(--green), var(--mint));
 }
 
@@ -1018,7 +1020,7 @@ h1 {
 }
 
 .miniSwitch button.active {
-  color: #08102a;
+  color: #154bf9;
   background: linear-gradient(135deg, var(--green), var(--mint));
 }
 

@@ -1037,6 +1037,13 @@ h1 {
   color: #154bf9;
 }
 
+.eoPage {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(250, 190, 35, 0.2), transparent 28%),
+    linear-gradient(180deg, #154bf9, #154bf9);
+  color: #fcfcfc;
+}
+
 .eoNav,
 .publicOrgNav {
   min-height: 82px;
@@ -1051,6 +1058,17 @@ h1 {
   position: sticky;
   top: 0;
   z-index: 20;
+}
+
+.eoPage .eoNav {
+  border-bottom-color: rgba(252, 252, 252, 0.18);
+  background: rgba(21, 75, 249, 0.82);
+  color: #fcfcfc;
+}
+
+.eoPage .eoNav .button.secondary {
+  background: #fcfcfc;
+  color: #154bf9;
 }
 
 .eoNavActions {
@@ -1111,6 +1129,20 @@ h1 {
   line-height: 1.55;
 }
 
+.eoPage .eoAuth p,
+.eoPage .eoIntro p,
+.eoPage .eoHero p,
+.eoPage .panelTitle p,
+.eoPage .creditBalance p {
+  color: rgba(252, 252, 252, 0.78);
+}
+
+.eoPage .eyebrow {
+  color: #fabe23;
+  border-color: rgba(250, 190, 35, 0.34);
+  background: rgba(250, 190, 35, 0.12);
+}
+
 .eoOnboarding {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(420px, 0.72fr);
@@ -1136,6 +1168,49 @@ h1 {
   border-radius: 18px;
   background: rgba(21, 75, 249, 0.035);
   box-shadow: 0 24px 80px rgba(21, 75, 249, 0.08);
+}
+
+.eoPage .eoFormCard,
+.eoPage .eoPanel,
+.eoPage .creditBalance {
+  border-color: rgba(252, 252, 252, 0.18);
+  background: rgba(252, 252, 252, 0.09);
+  box-shadow: 0 26px 90px rgba(2, 8, 35, 0.22);
+}
+
+.eoPage .field {
+  color: #fcfcfc;
+}
+
+.eoPage .field input,
+.eoPage .field textarea,
+.eoPage .field select {
+  color: #fcfcfc;
+  border-color: rgba(252, 252, 252, 0.22);
+  background: rgba(252, 252, 252, 0.08);
+}
+
+.eoPage .field input::placeholder,
+.eoPage .field textarea::placeholder {
+  color: rgba(252, 252, 252, 0.48);
+}
+
+.eoPage .field input:disabled,
+.eoPage .field textarea:disabled {
+  color: rgba(252, 252, 252, 0.76);
+  background: rgba(252, 252, 252, 0.05);
+}
+
+.eoPage .button.quiet {
+  color: #fcfcfc;
+  border-color: rgba(252, 252, 252, 0.18);
+  background: rgba(252, 252, 252, 0.08);
+}
+
+.eoPage .notice {
+  color: #fcfcfc;
+  border-color: rgba(250, 190, 35, 0.32);
+  background: rgba(250, 190, 35, 0.12);
 }
 
 .eoFormCard,
@@ -1214,6 +1289,14 @@ h1 {
   padding: 16px;
 }
 
+.eoPage .eoStats div,
+.eoPage .lockedFields div,
+.eoPage .creditQuote,
+.eoPage .eoCreated {
+  border-color: rgba(252, 252, 252, 0.16);
+  background: rgba(252, 252, 252, 0.08);
+}
+
 .eoStats span,
 .lockedFields span,
 .creditQuote span,
@@ -1224,11 +1307,26 @@ h1 {
   margin-bottom: 6px;
 }
 
+.eoPage .eoStats span,
+.eoPage .lockedFields span,
+.eoPage .creditQuote span,
+.eoPage .eoCreated span {
+  color: rgba(252, 252, 252, 0.66);
+}
+
 .eoStats strong,
 .lockedFields strong,
 .creditQuote strong,
 .eoCreated strong {
   color: #154bf9;
+}
+
+.eoPage .eoStats strong,
+.eoPage .lockedFields strong,
+.eoPage .creditQuote strong,
+.eoPage .eoCreated strong,
+.eoPage .panelTitle h2 {
+  color: #fcfcfc;
 }
 
 .eoGrid {
@@ -1272,6 +1370,11 @@ h1 {
 .creditQuote.ready {
   border-color: rgba(250, 190, 35, 0.42);
   background: rgba(250, 190, 35, 0.13);
+}
+
+.eoPage .creditQuote.ready {
+  border-color: rgba(250, 190, 35, 0.52);
+  background: rgba(250, 190, 35, 0.16);
 }
 
 .eoNotice {

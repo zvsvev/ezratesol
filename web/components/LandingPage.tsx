@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -16,6 +18,7 @@ import {
   Trophy,
   WalletCards,
 } from 'lucide-react'
+import { useEffect } from 'react'
 
 const features = [
   {
@@ -48,6 +51,31 @@ const workflow = [
 ]
 
 export function LandingPage() {
+  useEffect(() => {
+    const animatedItems = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll-reveal]'))
+
+    if (!('IntersectionObserver' in window)) {
+      animatedItems.forEach((item) => item.classList.add('isVisible'))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('isVisible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.16 }
+    )
+
+    animatedItems.forEach((item) => observer.observe(item))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <main className="landing">
@@ -123,25 +151,25 @@ export function LandingPage() {
       </main>
 
       <section className="proofStrip" id="proof">
-        <div className="proofItem">
+        <div className="proofItem revealItem" data-scroll-reveal>
           <strong>
             <ShieldCheck size={24} /> Whitelisted
           </strong>
           <span>Luma email lists decide who can review during the MVP.</span>
         </div>
-        <div className="proofItem">
+        <div className="proofItem revealItem delay1" data-scroll-reveal>
           <strong>
             <BadgeCheck size={24} /> Immutable
           </strong>
           <span>Rating, reviewer hash, and comment hash are committed on Solana.</span>
         </div>
-        <div className="proofItem">
+        <div className="proofItem revealItem delay2" data-scroll-reveal>
           <strong>
             <TicketCheck size={24} /> Sponsored
           </strong>
           <span>Organizers fund review transactions so attendees do not need SOL.</span>
         </div>
-        <div className="proofItem">
+        <div className="proofItem revealItem delay3" data-scroll-reveal>
           <strong>
             <WalletCards size={24} /> Reown Login
           </strong>
@@ -150,7 +178,7 @@ export function LandingPage() {
       </section>
 
       <section className="landingSection featureSection">
-        <div className="sectionIntro">
+        <div className="sectionIntro revealItem" data-scroll-reveal>
           <p className="eyebrow">
             <RadioTower size={16} /> What EZRATE solves
           </p>
@@ -161,7 +189,7 @@ export function LandingPage() {
         </div>
         <div className="featureGrid">
           {features.map((feature) => (
-            <article className="featureCard" key={feature.title}>
+            <article className="featureCard revealItem" data-scroll-reveal key={feature.title}>
               <img className="assetIcon" src={feature.asset} alt="" />
               <h3>{feature.title}</h3>
               <p>{feature.body}</p>
@@ -171,7 +199,7 @@ export function LandingPage() {
       </section>
 
       <section className="landingSection workflowSection">
-        <div className="sectionIntro narrow">
+        <div className="sectionIntro narrow revealItem" data-scroll-reveal>
           <p className="eyebrow">
             <CalendarClock size={16} /> Event workflow
           </p>
@@ -179,7 +207,7 @@ export function LandingPage() {
         </div>
         <div className="workflowRail">
           {workflow.map(([step, title, body]) => (
-            <article className="workflowCard" key={step}>
+            <article className="workflowCard revealItem" data-scroll-reveal key={step}>
               <span>{step}</span>
               <h3>{title}</h3>
               <p>{body}</p>
@@ -189,7 +217,7 @@ export function LandingPage() {
       </section>
 
       <section className="splitSection">
-        <div className="splitCopy">
+        <div className="splitCopy revealItem" data-scroll-reveal>
           <p className="eyebrow">
             <Coins size={16} /> Sponsored reviews
           </p>
@@ -198,7 +226,7 @@ export function LandingPage() {
             On Solana, a program cannot pay the network fee before execution. EZRATE uses a relayer architecture: the reviewer signs the review, the backend submits it, and the program reimburses the relayer from organizer prepaid SOL after the review is accepted.
           </p>
         </div>
-        <div className="ledgerPanel" aria-hidden="true">
+        <div className="ledgerPanel revealItem delay1" aria-hidden="true" data-scroll-reveal>
           <div className="ledgerLine active">
             <KeyRound size={18} />
             <span>Reviewer signs</span>
@@ -218,7 +246,7 @@ export function LandingPage() {
       </section>
 
       <section className="landingSection rewardSection">
-        <div className="rewardPanel">
+        <div className="rewardPanel revealItem" data-scroll-reveal>
           <div>
             <p className="eyebrow">
               <Trophy size={16} /> Reward layer
@@ -237,14 +265,14 @@ export function LandingPage() {
       </section>
 
       <section className="landingCta">
-        <div>
+        <div className="revealItem" data-scroll-reveal>
           <p className="eyebrow">
             <LockKeyhole size={16} /> Split domains
           </p>
           <h2>One brand, two focused apps.</h2>
           <p>Use the attendee app for reviewing events, or the organizer console to create and fund review campaigns.</p>
         </div>
-        <div className="ctaActions">
+        <div className="ctaActions revealItem delay1" data-scroll-reveal>
           <a className="button secondary" href="https://app.ezrate.fun">
             Launch App <MessageSquareText size={18} />
           </a>

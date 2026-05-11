@@ -25,6 +25,7 @@ git push -u origin main
 4. Add your production domains:
    - `https://ezrate.fun`
    - `https://app.ezrate.fun`
+   - `https://create.ezrate.fun`
    - your Vercel preview domain
 5. Copy the project ID.
 
@@ -76,12 +77,14 @@ In Vercel:
 3. Add:
    - `ezrate.fun`
    - `app.ezrate.fun`
+   - `create.ezrate.fun`
 4. Follow Vercel's DNS instructions at your domain registrar.
 
 Recommended routing:
 
 - `ezrate.fun` uses `/` and shows the landing page.
-- `app.ezrate.fun` also serves the same Next.js app, but the code detects the `app.` host and opens the mobile app view.
+- `app.ezrate.fun` serves the regular user review app.
+- `create.ezrate.fun` serves the event organizer creation app.
 
 ## 7. MVP Production Notes
 
@@ -99,9 +102,9 @@ Before using real events:
 
 Check that `NEXT_PUBLIC_REOWN_PROJECT_ID` is set in Vercel and that your domain is allowed in Reown Cloud.
 
-### App Shows Landing Page on app.ezrate.fun
+### App Shows Landing Page on app.ezrate.fun or create.ezrate.fun
 
-Make sure the domain is exactly `app.ezrate.fun`. The app checks whether the host starts with `app.`.
+Make sure the domain is exactly `app.ezrate.fun` or `create.ezrate.fun`. The app checks whether the host starts with `app.` or `create.`.
 
 ### Review Passcode Does Not Work
 

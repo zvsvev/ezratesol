@@ -11,8 +11,11 @@ export function LandingPage() {
             EZRATE
           </Link>
           <div className="navlinks">
-            <a className="button secondary" href="/app">
-              Launch App <ArrowRight size={18} />
+            <a className="button ghost" href="https://create.ezrate.fun">
+              Create Event <ArrowRight size={18} />
+            </a>
+            <a className="button secondary" href="https://app.ezrate.fun">
+              User App <ArrowRight size={18} />
             </a>
           </div>
         </nav>
@@ -28,8 +31,11 @@ export function LandingPage() {
               review fees, and commit every rating to Solana.
             </p>
             <div className="heroActions">
-              <a className="button secondary" href="/app">
-                Launch App <ArrowRight size={18} />
+              <a className="button secondary" href="https://app.ezrate.fun">
+                Open User App <ArrowRight size={18} />
+              </a>
+              <a className="button ghost" href="https://create.ezrate.fun">
+                Create Event <ArrowRight size={18} />
               </a>
             </div>
           </div>

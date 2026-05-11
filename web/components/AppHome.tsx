@@ -28,15 +28,15 @@ type AppView = 'home' | 'review' | 'create' | 'user'
 type Role = 'organizer' | 'reviewer'
 type Theme = 'dark' | 'light'
 
-export function AppHome() {
+export function AppHome({ mode = 'reviewer' }: { mode?: Role }) {
   const { open } = useAppKit()
   const { address, isConnected } = useAppKitAccount()
   const [events, setEvents] = useState<EventRecord[]>([])
   const [eventsError, setEventsError] = useState<string | null>(null)
   const [isLoadingEvents, setIsLoadingEvents] = useState(true)
   const [activeEventIndex, setActiveEventIndex] = useState(0)
-  const [view, setView] = useState<AppView>('home')
-  const [role, setRole] = useState<Role>('organizer')
+  const [view, setView] = useState<AppView>(mode === 'organizer' ? 'create' : 'home')
+  const role = mode
   const [theme, setTheme] = useState<Theme>('dark')
   const [name, setName] = useState('')
   const [location, setLocation] = useState('')
@@ -75,11 +75,9 @@ export function AppHome() {
   useEffect(() => {
     const savedProfile = window.localStorage.getItem('ezrate-profile')
     const savedTheme = window.localStorage.getItem('ezrate-theme') as Theme | null
-    const savedRole = window.localStorage.getItem('ezrate-role') as Role | null
     const savedSettings = window.localStorage.getItem('ezrate-settings')
 
     if (savedTheme === 'dark' || savedTheme === 'light') setTheme(savedTheme)
-    if (savedRole === 'organizer' || savedRole === 'reviewer') setRole(savedRole)
     if (!savedProfile) return
 
     try {
@@ -109,10 +107,6 @@ export function AppHome() {
   useEffect(() => {
     window.localStorage.setItem('ezrate-theme', theme)
   }, [theme])
-
-  useEffect(() => {
-    window.localStorage.setItem('ezrate-role', role)
-  }, [role])
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -285,7 +279,11 @@ export function AppHome() {
             <section className="authGate">
               <img className="authLogo" src="/ezrate-logo.png" alt="EZRATE" />
               <h2>SIGN IN OR REGISTER</h2>
-              <p>Access event creation, passcodes, review history, and reward notifications.</p>
+              <p>
+                {role === 'organizer'
+                  ? 'Access event creation, passcodes, review credits, and share links.'
+                  : 'Access event passcodes, review history, and reward notifications.'}
+              </p>
               <button className="button" onClick={() => open()} type="button">
                 SIGN IN OR REGISTER <ArrowRight size={18} />
               </button>
@@ -358,15 +356,21 @@ export function AppHome() {
                 )}
 
                 <div className="quickGrid">
-                  <button className="quickAction" onClick={() => setView('create')} type="button">
-                    <CalendarPlus size={22} /> Create
-                  </button>
-                  <button className="quickAction" onClick={() => setView('review')} type="button">
-                    <TicketCheck size={22} /> Review
-                  </button>
+                  {role === 'organizer' ? (
+                    <button className="quickAction" onClick={() => setView('create')} type="button">
+                      <CalendarPlus size={22} /> Create
+                    </button>
+                  ) : (
+                    <button className="quickAction" onClick={() => setView('review')} type="button">
+                      <TicketCheck size={22} /> Review
+                    </button>
+                  )}
                   <button className="quickAction" onClick={() => setView('user')} type="button">
                     <User size={22} /> Profile
                   </button>
+                  <a className="quickAction" href={role === 'organizer' ? 'https://app.ezrate.fun' : 'https://create.ezrate.fun'}>
+                    <ArrowRight size={22} /> {role === 'organizer' ? 'User App' : 'Create'}
+                  </a>
                 </div>
 
                 <h2 className="sectionTitle">Live events</h2>
@@ -550,20 +554,6 @@ export function AppHome() {
                       </button>
                     </div>
                   </div>
-                  <div className="settingRow">
-                    <div>
-                      <strong>Default role</strong>
-                      <span>{role === 'organizer' ? 'Organizer dashboard first' : 'Reviewer dashboard first'}</span>
-                    </div>
-                    <div className="miniSwitch">
-                      <button className={role === 'organizer' ? 'active' : ''} onClick={() => setRole('organizer')} type="button">
-                        EO
-                      </button>
-                      <button className={role === 'reviewer' ? 'active' : ''} onClick={() => setRole('reviewer')} type="button">
-                        User
-                      </button>
-                    </div>
-                  </div>
                   <label className="toggleRow">
                     <span>
                       <strong>Reward alerts</strong>
@@ -613,12 +603,16 @@ export function AppHome() {
             <button className={`tab ${view === 'home' ? 'active' : ''}`} onClick={() => setView('home')} type="button">
               <Home size={19} /> Home
             </button>
-            <button className={`tab ${view === 'review' ? 'active' : ''}`} onClick={() => setView('review')} type="button">
-              <TicketCheck size={19} /> Review
-            </button>
-            <button className={`tab ${view === 'create' ? 'active' : ''}`} onClick={() => setView('create')} type="button">
-              <Plus size={19} /> Create
-            </button>
+            {role === 'reviewer' && (
+              <button className={`tab ${view === 'review' ? 'active' : ''}`} onClick={() => setView('review')} type="button">
+                <TicketCheck size={19} /> Review
+              </button>
+            )}
+            {role === 'organizer' && (
+              <button className={`tab ${view === 'create' ? 'active' : ''}`} onClick={() => setView('create')} type="button">
+                <Plus size={19} /> Create
+              </button>
+            )}
             <button className={`tab ${view === 'user' ? 'active' : ''}`} onClick={() => setView('user')} type="button">
               <User size={19} /> User
             </button>

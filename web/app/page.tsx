@@ -6,7 +6,11 @@ export default async function Home() {
   const host = (await headers()).get('host') || ''
 
   if (host.startsWith('app.')) {
-    return <AppHome />
+    return <AppHome mode="reviewer" />
+  }
+
+  if (host.startsWith('create.')) {
+    return <AppHome mode="organizer" />
   }
 
   return <LandingPage />

@@ -17,8 +17,9 @@ web/               Next.js app, API routes, Reown AppKit integration
 - Backend: Next.js API routes. For the pitch MVP this reads/writes JSON in `web/data`. Swap this for Turso, Neon, Supabase, or Upstash before production.
 - Frontend: one Next.js app with host-aware homepages.
   - `ezrate.fun` renders the landing page.
-  - `app.ezrate.fun` renders the mobile app view.
-  - Local fallback routes: `/` for landing, `/app` for app view.
+  - `app.ezrate.fun` renders the regular user review app.
+  - `create.ezrate.fun` renders the event organizer app.
+  - Local fallback routes: `/` for landing, `/app` for user app, `/create` for organizer app.
 - Login/wallet: Reown AppKit Solana adapter. The UI is wired for AppKit and keeps email capture explicit for the MVP because Google identity verification depends on your Reown Cloud/Auth configuration.
 
 ## Quick Start

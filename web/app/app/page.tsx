@@ -1,5 +1,5 @@
 import { AppHome } from '@/components/AppHome'
 
 export default function AppPage() {
-  return <AppHome />
+  return <AppHome mode="reviewer" />
 }

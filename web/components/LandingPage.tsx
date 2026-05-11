@@ -19,22 +19,22 @@ import {
 
 const features = [
   {
-    icon: ShieldCheck,
+    asset: '/icons/ezrate-icon-00.png',
     title: 'Attendee-only reviews',
     body: 'Organizers can gate reviews with event passcodes and Luma email whitelists for a cleaner signal.',
   },
   {
-    icon: WalletCards,
+    asset: '/icons/ezrate-icon-02.png',
     title: 'Gasless reviewer UX',
     body: 'Reviewers sign with their Reown wallet while EZRATE relays the transaction using organizer-funded credits.',
   },
   {
-    icon: BadgeCheck,
+    asset: '/icons/ezrate-icon-05.png',
     title: 'On-chain commitments',
     body: 'Ratings, reviewer identity hashes, and comment hashes are committed to Solana so results cannot be edited later.',
   },
   {
-    icon: Trophy,
+    asset: '/icons/ezrate-icon-04.png',
     title: 'Reward-ready events',
     body: 'Events can advertise random or pro-rata rewards in SOL, USDC, or vouchers as the payout layer matures.',
   },
@@ -160,16 +160,13 @@ export function LandingPage() {
           </p>
         </div>
         <div className="featureGrid">
-          {features.map((feature) => {
-            const Icon = feature.icon
-            return (
-              <article className="featureCard" key={feature.title}>
-                <Icon size={26} />
-                <h3>{feature.title}</h3>
-                <p>{feature.body}</p>
-              </article>
-            )
-          })}
+          {features.map((feature) => (
+            <article className="featureCard" key={feature.title}>
+              <img className="assetIcon" src={feature.asset} alt="" />
+              <h3>{feature.title}</h3>
+              <p>{feature.body}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -232,9 +229,9 @@ export function LandingPage() {
             </p>
           </div>
           <div className="rewardGrid">
-            <div><Coins size={20} /><strong>SOL</strong><span>Best first payout asset</span></div>
-            <div><WalletCards size={20} /><strong>USDC</strong><span>Stable rewards later</span></div>
-            <div><TicketCheck size={20} /><strong>Vouchers</strong><span>Claim codes in profile</span></div>
+            <div><img src="/icons/ezrate-icon-02.png" alt="" /><strong>SOL</strong><span>Best first payout asset</span></div>
+            <div><img src="/icons/ezrate-icon-03.png" alt="" /><strong>USDC</strong><span>Stable rewards later</span></div>
+            <div><img src="/icons/ezrate-icon-01.png" alt="" /><strong>Vouchers</strong><span>Claim codes in profile</span></div>
           </div>
         </div>
       </section>

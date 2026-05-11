@@ -414,6 +414,14 @@ h1 {
   align-content: start;
 }
 
+.assetIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 16px 42px rgba(21, 75, 249, 0.18);
+}
+
 .featureCard svg,
 .workflowCard span,
 .rewardGrid svg,
@@ -554,9 +562,16 @@ h1 {
 
 .rewardGrid div {
   display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 4px 10px;
+  grid-template-columns: 46px 1fr;
+  gap: 4px 12px;
   align-items: center;
+}
+
+.rewardGrid img {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 .rewardGrid span {
@@ -862,6 +877,14 @@ h1 {
   font-size: 12px;
   font-weight: 800;
   cursor: pointer;
+}
+
+.quickAction img {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
 }
 
 .quickAction svg {
@@ -1218,6 +1241,14 @@ h1 {
 
 .profileCard svg {
   color: var(--green);
+}
+
+.profileCard img {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex: 0 0 auto;
 }
 
 .profileCard strong,

@@ -3,7 +3,6 @@
 import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
 import {
   ArrowRight,
-  CalendarPlus,
   Check,
   Copy,
   Edit3,
@@ -358,18 +357,18 @@ export function AppHome({ mode = 'reviewer' }: { mode?: Role }) {
                 <div className="quickGrid">
                   {role === 'organizer' ? (
                     <button className="quickAction" onClick={() => setView('create')} type="button">
-                      <CalendarPlus size={22} /> Create
+                      <img src="/icons/ezrate-icon-03.png" alt="" /> Create
                     </button>
                   ) : (
                     <button className="quickAction" onClick={() => setView('review')} type="button">
-                      <TicketCheck size={22} /> Review
+                      <img src="/icons/ezrate-icon-00.png" alt="" /> Review
                     </button>
                   )}
                   <button className="quickAction" onClick={() => setView('user')} type="button">
-                    <User size={22} /> Profile
+                    <img src="/icons/ezrate-icon-04.png" alt="" /> Profile
                   </button>
                   <a className="quickAction" href={role === 'organizer' ? 'https://app.ezrate.fun' : 'https://create.ezrate.fun'}>
-                    <ArrowRight size={22} /> {role === 'organizer' ? 'User App' : 'Create'}
+                    <img src={role === 'organizer' ? '/icons/ezrate-icon-00.png' : '/icons/ezrate-icon-03.png'} alt="" /> {role === 'organizer' ? 'User App' : 'Create'}
                   </a>
                 </div>
 
@@ -510,7 +509,7 @@ export function AppHome({ mode = 'reviewer' }: { mode?: Role }) {
                   <p>Profile, review history, and reward notifications.</p>
                 </div>
                 <div className="profileCard">
-                  <User size={22} />
+                  <img src="/icons/ezrate-icon-04.png" alt="" />
                   <div>
                     <strong>{displayName}</strong>
                     <span>{showWalletPublicly ? address || 'Wallet not connected' : 'Wallet hidden on profile'}</span>

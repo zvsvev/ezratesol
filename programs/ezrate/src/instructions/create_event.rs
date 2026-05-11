@@ -20,11 +20,18 @@ impl<'info> CreateEvent<'info> {
         &mut self,
         event_id: [u8; 32],
         max_reviews: u32,
+        prepaid_lamports: u64,
+        review_reimbursement_lamports: u64,
         name: String<96>,
         bumps: &CreateEventBumps,
     ) -> Result<(), ProgramError> {
         require!(max_reviews > 0, EzrateError::InvalidMaxReviews);
         require!(name.len() > 0, EzrateError::InvalidEventName);
+        require!(prepaid_lamports > 0, EzrateError::MissingPrepaidFees);
+        require!(
+            review_reimbursement_lamports > 0,
+            EzrateError::InvalidReviewReimbursement
+        );
 
         self.event.set_inner(
             *self.organizer.address(),
@@ -32,16 +39,24 @@ impl<'info> CreateEvent<'info> {
             event_id,
             max_reviews,
             0u32,
+            prepaid_lamports,
+            review_reimbursement_lamports,
             bumps.event,
             name.as_str(),
             self.organizer.to_account_view(),
             Some(&**self.rent),
         );
 
+        self.system_program
+            .transfer(self.organizer, &mut self.event, prepaid_lamports)
+            .invoke()?;
+
         emit!(EventCreated {
             event: *self.event.address(),
             organizer: *self.organizer.address(),
             max_reviews,
+            prepaid_lamports,
+            review_reimbursement_lamports,
         });
 
         Ok(())
@@ -54,4 +69,8 @@ pub enum EzrateError {
     InvalidMaxReviews,
     #[msg("event name is required")]
     InvalidEventName,
+    #[msg("prepaid review fees are required")]
+    MissingPrepaidFees,
+    #[msg("review reimbursement must be greater than zero")]
+    InvalidReviewReimbursement,
 }

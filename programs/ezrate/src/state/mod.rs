@@ -7,6 +7,8 @@ pub struct Event<'a> {
     pub event_id: [u8; 32],
     pub max_reviews: u32,
     pub review_count: u32,
+    pub prepaid_lamports: u64,
+    pub review_reimbursement_lamports: u64,
     pub bump: u8,
     pub name: String<'a, 96>,
 }
@@ -14,6 +16,7 @@ pub struct Event<'a> {
 #[account(discriminator = 2)]
 pub struct Review {
     pub event: Address,
+    pub reviewer: Address,
     pub reviewer_hash: [u8; 32],
     pub rating: u8,
     pub comment_hash: [u8; 32],

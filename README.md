@@ -51,6 +51,17 @@ quasar test
 
 The program id in `src/lib.rs` is a placeholder. Generate and deploy your devnet program id before using this in a live demo.
 
+### Sponsored Review Fees
+
+The Quasar program is designed for gasless reviewer UX:
+
+- The event organizer prepays SOL into the event account when creating an event.
+- The reviewer still signs the review transaction, but does not need SOL.
+- The EZRATE relayer is the Solana transaction fee payer.
+- After a valid review is recorded, the program reimburses the relayer from the event's prepaid SOL balance.
+
+This matches Solana's fee model: programs cannot pay the network fee before execution, so a relayer must submit the transaction. The on-chain prepaid balance makes the relayer economically covered by the organizer.
+
 ## Pitch Demo Flow
 
 1. Organizer opens the app view and creates an event with max reviews and a Luma email whitelist.

@@ -6,6 +6,7 @@ use crate::state::{Event, Review};
 #[derive(Accounts)]
 pub struct SubmitReview<'info> {
     pub relayer: &'info mut Signer,
+    pub reviewer: &'info Signer,
 
     #[account(
         mut,
@@ -35,9 +36,16 @@ impl<'info> SubmitReview<'info> {
             self.event.review_count < self.event.max_reviews,
             ReviewError::EventFull
         );
+        require!(
+            self.event.prepaid_lamports >= self.event.review_reimbursement_lamports,
+            ReviewError::InsufficientReviewCredits
+        );
+
+        let reimbursement = self.event.review_reimbursement_lamports;
 
         self.review.set_inner(
             *self.event.address(),
+            *self.reviewer.address(),
             reviewer_hash,
             rating,
             comment_hash,
@@ -45,11 +53,27 @@ impl<'info> SubmitReview<'info> {
             bumps.review,
         );
         self.event.review_count = self.event.review_count + 1;
+        self.event.prepaid_lamports = self.event.prepaid_lamports - reimbursement;
+
+        let event_view = self.event.to_account_view();
+        let relayer_view = self.relayer.to_account_view();
+        let event_lamports = event_view.lamports();
+        let relayer_lamports = relayer_view.lamports();
+
+        require!(
+            event_lamports >= reimbursement,
+            ReviewError::InsufficientReviewCredits
+        );
+
+        set_lamports(event_view, event_lamports - reimbursement);
+        set_lamports(relayer_view, relayer_lamports + reimbursement);
 
         emit!(ReviewSubmitted {
             event: *self.event.address(),
             review: *self.review.address(),
+            reviewer: *self.reviewer.address(),
             rating,
+            relayer_reimbursement_lamports: reimbursement,
         });
 
         Ok(())
@@ -62,4 +86,6 @@ pub enum ReviewError {
     InvalidRating,
     #[msg("event has reached its review limit")]
     EventFull,
+    #[msg("event does not have enough prepaid review credits")]
+    InsufficientReviewCredits,
 }

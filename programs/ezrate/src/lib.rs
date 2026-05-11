@@ -19,9 +19,18 @@ mod ezrate {
         ctx: Ctx<CreateEvent>,
         event_id: [u8; 32],
         max_reviews: u32,
+        prepaid_lamports: u64,
+        review_reimbursement_lamports: u64,
         name: String<96>,
     ) -> Result<(), ProgramError> {
-        ctx.accounts.create_event(event_id, max_reviews, name, &ctx.bumps)
+        ctx.accounts.create_event(
+            event_id,
+            max_reviews,
+            prepaid_lamports,
+            review_reimbursement_lamports,
+            name,
+            &ctx.bumps,
+        )
     }
 
     #[instruction(discriminator = 1)]

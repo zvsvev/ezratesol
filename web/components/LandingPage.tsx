@@ -85,7 +85,7 @@ export function LandingPage() {
             EZRATE
           </Link>
           <div className="navlinks">
-            <a className="button ghost" href="https://event.ezrate.fun">
+            <a className="button ghost" href="https://create.ezrate.fun">
               Create Event <ArrowRight size={18} />
             </a>
             <a className="button secondary" href="https://app.ezrate.fun">
@@ -108,7 +108,7 @@ export function LandingPage() {
               <a className="button secondary" href="https://app.ezrate.fun">
                 Launch App <ArrowRight size={18} />
               </a>
-              <a className="button ghost" href="https://event.ezrate.fun">
+              <a className="button ghost" href="https://create.ezrate.fun">
                 Create Event <ArrowRight size={18} />
               </a>
             </div>
@@ -276,7 +276,7 @@ export function LandingPage() {
           <a className="button secondary" href="https://app.ezrate.fun">
             Launch App <MessageSquareText size={18} />
           </a>
-          <a className="button ghost" href="https://event.ezrate.fun">
+          <a className="button ghost" href="https://create.ezrate.fun">
             Organizer Console <Link2 size={18} />
           </a>
         </div>

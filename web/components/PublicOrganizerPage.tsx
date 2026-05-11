@@ -53,7 +53,7 @@ export function PublicOrganizerPage({ username }: { username: string }) {
             <img src="/ezrate-logo.png" alt="" />
             EZRATE
           </Link>
-          <a className="button secondary" href="https://event.ezrate.fun">
+          <a className="button secondary" href="https://create.ezrate.fun">
             Register organizer <ArrowRight size={18} />
           </a>
         </header>
@@ -61,7 +61,7 @@ export function PublicOrganizerPage({ username }: { username: string }) {
           <Building2 size={36} />
           <h1>Organizer not found</h1>
           <p>No organizer has claimed app.ezrate.fun/{username} in this demo browser yet.</p>
-          <a className="button" href="https://event.ezrate.fun">
+          <a className="button" href="https://create.ezrate.fun">
             Claim a username <ArrowRight size={18} />
           </a>
         </section>

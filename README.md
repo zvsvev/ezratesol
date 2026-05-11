@@ -18,7 +18,7 @@ web/               Next.js app, API routes, Reown AppKit integration
 - Frontend: one Next.js app with host-aware homepages.
   - `ezrate.fun` renders the landing page.
   - `app.ezrate.fun` renders the regular user review app.
-  - `event.ezrate.fun` renders the desktop event organizer portal.
+  - `create.ezrate.fun` renders the desktop event organizer portal.
   - `app.ezrate.fun/[username]` renders a public organizer profile.
   - Local fallback routes: `/` for landing, `/app` for user app, `/create` for organizer portal.
 - Login/wallet: Reown AppKit Solana adapter. The UI is wired for AppKit and keeps email capture explicit because Google identity verification depends on your Reown Cloud/Auth configuration.

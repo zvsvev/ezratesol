@@ -25,8 +25,8 @@ createAppKit({
   features: {
     analytics: true,
     email: true,
-    socials: ['google']
-  }
+    socials: ['google', 'x', 'discord'],
+  },
 })
 
 export default function ContextProvider({ children }: { children: ReactNode }) {

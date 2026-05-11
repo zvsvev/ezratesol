@@ -1392,12 +1392,25 @@ h1 {
   backdrop-filter: blur(14px);
 }
 
+.eoPage .pricingOverlay {
+  background: rgba(2, 8, 35, 0.7);
+}
+
 .pricingModal {
   width: min(1080px, 100%);
   max-height: calc(100dvh - 48px);
   overflow: auto;
   padding: clamp(22px, 4vw, 36px);
   background: #fcfcfc;
+}
+
+.eoPage .pricingModal {
+  color: #fcfcfc;
+  border-color: rgba(252, 252, 252, 0.2);
+  background:
+    radial-gradient(circle at 88% 10%, rgba(250, 190, 35, 0.18), transparent 28%),
+    linear-gradient(180deg, #154bf9, #154bf9);
+  box-shadow: 0 32px 110px rgba(0, 0, 0, 0.34);
 }
 
 .pricingHeader {
@@ -1419,6 +1432,16 @@ h1 {
   font-size: 30px;
 }
 
+.eoPage .pricingHeader p {
+  color: rgba(252, 252, 252, 0.76);
+}
+
+.eoPage .pricingHeader .iconButton {
+  color: #fcfcfc;
+  border-color: rgba(252, 252, 252, 0.18);
+  background: rgba(252, 252, 252, 0.08);
+}
+
 .pricingGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1435,10 +1458,22 @@ h1 {
   background: rgba(21, 75, 249, 0.035);
 }
 
+.eoPage .priceCard {
+  color: #fcfcfc;
+  border-color: rgba(252, 252, 252, 0.18);
+  background: rgba(252, 252, 252, 0.08);
+}
+
 .priceCard.featured {
   color: #fcfcfc;
   background: #154bf9;
   border-color: #154bf9;
+}
+
+.eoPage .priceCard.featured {
+  color: #154bf9;
+  background: linear-gradient(135deg, #fabe23, #fcfcfc);
+  border-color: rgba(250, 190, 35, 0.72);
 }
 
 .priceCard span {
@@ -1455,10 +1490,34 @@ h1 {
   color: rgba(252, 252, 252, 0.76);
 }
 
+.eoPage .priceCard p {
+  color: rgba(252, 252, 252, 0.74);
+}
+
+.eoPage .priceCard.featured p,
+.eoPage .priceCard.featured span {
+  color: rgba(21, 75, 249, 0.72);
+}
+
+.eoPage .priceCard.featured strong {
+  color: #154bf9;
+}
+
+.eoPage .priceCard .button.secondary {
+  background: #fcfcfc;
+  color: #154bf9;
+}
+
 .priceCard .button.ghost {
   color: #154bf9;
   border-color: rgba(21, 75, 249, 0.18);
   background: rgba(21, 75, 249, 0.06);
+}
+
+.eoPage .priceCard .button.ghost {
+  color: #fcfcfc;
+  border-color: rgba(252, 252, 252, 0.18);
+  background: rgba(252, 252, 252, 0.08);
 }
 
 .eoHero .button.ghost {

@@ -38,13 +38,13 @@ const features = [
   },
   {
     asset: '/icons/ezrate-icon-04.png',
-    title: 'Reward-ready events',
-    body: 'Events can advertise random or pro-rata rewards in SOL, USDC, or vouchers as the payout layer matures.',
+    title: 'Organizer reputation graph',
+    body: 'Every reviewed event contributes to a public, verifiable reputation trail for organizers.',
   },
 ]
 
 const workflow = [
-  ['01', 'Create event', 'Organizer sets name, review capacity, end time, passcode, and optional reward.'],
+  ['01', 'Create event', 'Organizer creates a review campaign and sets event details plus eligibility rules.'],
   ['02', 'Fund review credits', 'Organizer prepays SOL so attendees do not need to hold SOL just to leave a rating.'],
   ['03', 'Share passcode', 'After the event ends, attendees open the app and enter the event passcode.'],
   ['04', 'Commit review', 'The relayer submits the signed review and gets reimbursed from the prepaid event balance.'],
@@ -101,8 +101,8 @@ export function LandingPage() {
             </p>
             <h1>EZRATE</h1>
             <p>
-              A mobile-first review layer for Web3 events. Whitelist real attendees, sponsor their
-              on-chain review fees, and turn post-event feedback into a verifiable reputation graph.
+              Verified reviews for Web3 events. Validate attendee-only feedback, keep reviewers publicly
+              anonymous but accountable, and preserve tamper-resistant review proof on Solana.
             </p>
             <div className="heroActions">
               <a className="button secondary" href="https://app.ezrate.fun">
@@ -155,7 +155,7 @@ export function LandingPage() {
           <strong>
             <ShieldCheck size={24} /> Whitelisted
           </strong>
-          <span>Email whitelists decide who can review each event.</span>
+          <span>Only verified attendees can review each event.</span>
         </div>
         <div className="proofItem revealItem delay1" data-scroll-reveal>
           <strong>
@@ -173,7 +173,7 @@ export function LandingPage() {
           <strong>
             <WalletCards size={24} /> Reown Login
           </strong>
-          <span>Google/social wallet onboarding is ready for your Reown project.</span>
+          <span>Google, X (Twitter), and Discord sign-in reduce friction for verified reviewers.</span>
         </div>
       </section>
 
@@ -249,17 +249,17 @@ export function LandingPage() {
         <div className="rewardPanel revealItem" data-scroll-reveal>
           <div>
             <p className="eyebrow">
-              <Trophy size={16} /> Reward layer
+              <Trophy size={16} /> Review credits pricing
             </p>
-            <h2>Make feedback worth giving.</h2>
+            <h2>EventCredibility as a Service.</h2>
             <p>
-              Organizers can configure reward campaigns for SOL, USDC, or voucher-based incentives as review programs scale.
+              Unlimited event pages, but sponsored usage is measured with review credits. 1 credit = 1 verified sponsored review.
             </p>
           </div>
           <div className="rewardGrid">
-            <div><img src="/icons/ezrate-icon-02.png" alt="" /><strong>SOL</strong><span>Best first payout asset</span></div>
-            <div><img src="/icons/ezrate-icon-03.png" alt="" /><strong>USDC</strong><span>Stable rewards later</span></div>
-            <div><img src="/icons/ezrate-icon-01.png" alt="" /><strong>Vouchers</strong><span>Claim codes in profile</span></div>
+            <div><img src="/icons/ezrate-icon-02.png" alt="" /><strong>Free / Demo</strong><span>1 event · 10 credits · public page</span></div>
+            <div><img src="/icons/ezrate-icon-03.png" alt="" /><strong>Starter</strong><span>Unlimited events · 100 credits · QR access</span></div>
+            <div><img src="/icons/ezrate-icon-01.png" alt="" /><strong>Community</strong><span>Unlimited events · 500 credits · trust tools</span></div>
           </div>
         </div>
       </section>

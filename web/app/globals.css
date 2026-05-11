@@ -180,6 +180,7 @@ h1 {
 }
 
 .heroMockup {
+  position: relative;
   min-height: 520px;
   border: 1px solid var(--line);
   border-radius: 28px;
@@ -191,6 +192,51 @@ h1 {
   display: grid;
   align-content: space-between;
   overflow: hidden;
+  animation: mockupFloat 5.5s ease-in-out infinite;
+}
+
+.reviewStream {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  min-height: 44px;
+  border: 1px solid rgba(252, 252, 252, 0.2);
+  border-radius: 8px;
+  background: rgba(252, 252, 252, 0.1);
+  backdrop-filter: blur(12px);
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  color: #fcfcfc;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.2);
+}
+
+.reviewStream span:first-child {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--green);
+  color: var(--text-dark);
+}
+
+.reviewStream span:last-child {
+  color: var(--green);
+}
+
+.streamA {
+  top: 92px;
+  animation: streamDriftA 8s ease-in-out infinite;
+}
+
+.streamB {
+  bottom: 104px;
+  animation: streamDriftB 9s ease-in-out infinite;
 }
 
 .mockTop,
@@ -294,6 +340,259 @@ h1 {
 
 .proofItem span {
   color: var(--muted);
+}
+
+.landingSection,
+.splitSection,
+.landingCta {
+  background: #fcfcfc;
+  color: #154bf9;
+  padding: clamp(72px, 10vw, 132px) clamp(20px, 5vw, 72px);
+}
+
+.sectionIntro {
+  max-width: 880px;
+  display: grid;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.sectionIntro.narrow {
+  max-width: 740px;
+}
+
+.sectionIntro .eyebrow,
+.splitCopy .eyebrow,
+.rewardPanel .eyebrow,
+.landingCta .eyebrow {
+  border-color: rgba(21, 75, 249, 0.16);
+  background: rgba(21, 75, 249, 0.06);
+  color: #154bf9;
+  width: fit-content;
+}
+
+.sectionIntro h2,
+.splitCopy h2,
+.rewardPanel h2,
+.landingCta h2 {
+  margin: 0;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.sectionIntro p,
+.splitCopy p,
+.rewardPanel p,
+.landingCta p,
+.featureCard p,
+.workflowCard p,
+.rewardGrid span {
+  color: rgba(21, 75, 249, 0.72);
+  line-height: 1.55;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.featureCard,
+.workflowCard,
+.rewardGrid div {
+  border: 1px solid rgba(21, 75, 249, 0.14);
+  border-radius: 8px;
+  background: rgba(21, 75, 249, 0.035);
+  padding: 22px;
+}
+
+.featureCard {
+  display: grid;
+  gap: 12px;
+  min-height: 250px;
+  align-content: start;
+}
+
+.featureCard svg,
+.workflowCard span,
+.rewardGrid svg,
+.ledgerLine svg {
+  color: #fabe23;
+}
+
+.featureCard h3,
+.workflowCard h3 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.08;
+}
+
+.featureCard p,
+.workflowCard p {
+  margin: 0;
+}
+
+.workflowSection {
+  background:
+    linear-gradient(180deg, #fcfcfc, rgba(250, 190, 35, 0.14)),
+    #fcfcfc;
+}
+
+.workflowRail {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 14px;
+  overflow: hidden;
+}
+
+.workflowCard {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  min-height: 240px;
+  animation: workflowLift 700ms ease both;
+}
+
+.workflowCard:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.workflowCard:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.workflowCard:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.workflowCard span {
+  font-weight: 950;
+  font-size: 13px;
+}
+
+.splitSection {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.75fr);
+  gap: clamp(28px, 6vw, 88px);
+  align-items: center;
+  background: #154bf9;
+  color: #fcfcfc;
+}
+
+.splitCopy .eyebrow {
+  border-color: rgba(250, 190, 35, 0.26);
+  background: rgba(250, 190, 35, 0.12);
+  color: #fabe23;
+}
+
+.splitCopy p {
+  color: rgba(252, 252, 252, 0.78);
+}
+
+.ledgerPanel {
+  border: 1px solid rgba(252, 252, 252, 0.2);
+  border-radius: 24px;
+  padding: 18px;
+  background: rgba(252, 252, 252, 0.08);
+  display: grid;
+  gap: 12px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.22);
+}
+
+.ledgerLine {
+  min-height: 76px;
+  border: 1px solid rgba(252, 252, 252, 0.14);
+  border-radius: 8px;
+  background: rgba(252, 252, 252, 0.06);
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  animation: ledgerPulse 3s ease-in-out infinite;
+}
+
+.ledgerLine:nth-child(2) {
+  animation-delay: 600ms;
+}
+
+.ledgerLine:nth-child(3) {
+  animation-delay: 1200ms;
+}
+
+.ledgerLine.active {
+  background: rgba(250, 190, 35, 0.13);
+  border-color: rgba(250, 190, 35, 0.28);
+}
+
+.ledgerLine strong {
+  color: #fabe23;
+}
+
+.rewardSection {
+  background: #fcfcfc;
+}
+
+.rewardPanel {
+  border: 1px solid rgba(21, 75, 249, 0.14);
+  border-radius: 24px;
+  padding: clamp(26px, 5vw, 56px);
+  background:
+    linear-gradient(135deg, rgba(250, 190, 35, 0.16), transparent 46%),
+    rgba(21, 75, 249, 0.035);
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(300px, 0.65fr);
+  gap: clamp(24px, 5vw, 70px);
+  align-items: center;
+}
+
+.rewardGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.rewardGrid div {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 4px 10px;
+  align-items: center;
+}
+
+.rewardGrid span {
+  grid-column: 2;
+}
+
+.landingCta {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  align-items: center;
+  background: #154bf9;
+  color: #fcfcfc;
+  padding-top: clamp(56px, 8vw, 96px);
+  padding-bottom: clamp(56px, 8vw, 96px);
+}
+
+.landingCta .eyebrow {
+  border-color: rgba(250, 190, 35, 0.26);
+  background: rgba(250, 190, 35, 0.12);
+  color: #fabe23;
+}
+
+.landingCta p {
+  color: rgba(252, 252, 252, 0.78);
+}
+
+.landingCta > div:first-child {
+  max-width: 740px;
+}
+
+.ctaActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .phonePage {
@@ -1074,6 +1373,68 @@ h1 {
   }
 }
 
+@keyframes mockupFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes streamDriftA {
+  0%,
+  100% {
+    transform: translateX(-4px);
+    opacity: 0.82;
+  }
+
+  50% {
+    transform: translateX(12px);
+    opacity: 1;
+  }
+}
+
+@keyframes streamDriftB {
+  0%,
+  100% {
+    transform: translateX(10px);
+    opacity: 0.78;
+  }
+
+  50% {
+    transform: translateX(-10px);
+    opacity: 1;
+  }
+}
+
+@keyframes workflowLift {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ledgerPulse {
+  0%,
+  100% {
+    transform: translateX(0);
+    border-color: rgba(252, 252, 252, 0.14);
+  }
+
+  50% {
+    transform: translateX(6px);
+    border-color: rgba(250, 190, 35, 0.34);
+  }
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -1081,7 +1442,12 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .appContent {
+  .appContent,
+  .heroMockup,
+  .streamA,
+  .streamB,
+  .workflowCard,
+  .ledgerLine {
     animation: none;
   }
 
@@ -1099,6 +1465,24 @@ h1 {
     min-height: 420px;
   }
 
+  .featureGrid,
+  .workflowRail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .splitSection,
+  .rewardPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .landingCta {
+    display: grid;
+  }
+
+  .ctaActions {
+    justify-content: flex-start;
+  }
+
   .proofStrip {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1107,6 +1491,83 @@ h1 {
 @media (max-width: 720px) {
   .navlinks a:first-child {
     display: none;
+  }
+
+  .nav {
+    padding: 18px 16px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .hero {
+    padding: 10px 16px 48px;
+  }
+
+  .heroText p {
+    font-size: 17px;
+  }
+
+  .heroActions,
+  .ctaActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .heroActions .button,
+  .ctaActions .button {
+    width: 100%;
+  }
+
+  .heroMockup {
+    min-height: 460px;
+    border-radius: 20px;
+  }
+
+  .reviewStream {
+    left: 14px;
+    right: 14px;
+    grid-template-columns: 40px 1fr;
+  }
+
+  .reviewStream span:last-child {
+    display: none;
+  }
+
+  .landingSection,
+  .splitSection,
+  .landingCta {
+    padding: 56px 16px;
+  }
+
+  .sectionIntro h2,
+  .splitCopy h2,
+  .rewardPanel h2,
+  .landingCta h2 {
+    font-size: 38px;
+  }
+
+  .featureGrid,
+  .workflowRail {
+    grid-template-columns: 1fr;
+  }
+
+  .featureCard,
+  .workflowCard {
+    min-height: auto;
+  }
+
+  .ledgerLine {
+    grid-template-columns: 30px 1fr;
+  }
+
+  .ledgerLine strong {
+    grid-column: 2;
+  }
+
+  .rewardPanel {
+    border-radius: 18px;
   }
 
   .proofStrip {

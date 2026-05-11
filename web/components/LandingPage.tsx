@@ -24,7 +24,7 @@ const features = [
   {
     asset: '/icons/ezrate-icon-00.png',
     title: 'Attendee-only reviews',
-    body: 'Organizers can gate reviews with event passcodes and Luma email whitelists for a cleaner signal.',
+    body: 'Organizers can gate reviews with event passcodes and email whitelists for a cleaner signal.',
   },
   {
     asset: '/icons/ezrate-icon-02.png',
@@ -97,7 +97,7 @@ export function LandingPage() {
         <section className="hero">
           <div className="heroText">
             <p className="eyebrow">
-              <Sparkles size={16} /> Solana devnet MVP
+              <Sparkles size={16} /> On-chain review network
             </p>
             <h1>EZRATE</h1>
             <p>
@@ -126,7 +126,7 @@ export function LandingPage() {
             </div>
             <div className="mockTop">
               <span>EZRATE</span>
-              <div className="mockPill">devnet</div>
+              <div className="mockPill">on-chain</div>
             </div>
             <div className="mockScore">
               <span>Solana Builder Night</span>
@@ -155,7 +155,7 @@ export function LandingPage() {
           <strong>
             <ShieldCheck size={24} /> Whitelisted
           </strong>
-          <span>Luma email lists decide who can review during the MVP.</span>
+          <span>Email whitelists decide who can review each event.</span>
         </div>
         <div className="proofItem revealItem delay1" data-scroll-reveal>
           <strong>
@@ -253,7 +253,7 @@ export function LandingPage() {
             </p>
             <h2>Make feedback worth giving.</h2>
             <p>
-              Organizers can configure reward intent in the MVP today. The next contract step is an on-chain reward vault for SOL, followed by USDC and voucher claims.
+              Organizers can configure reward campaigns for SOL, USDC, or voucher-based incentives as review programs scale.
             </p>
           </div>
           <div className="rewardGrid">

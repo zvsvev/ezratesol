@@ -476,7 +476,7 @@ export function AppHome({ mode = 'reviewer' }: { mode?: Role }) {
                 </div>
                 <label className="field">
                   Whitelist emails
-                  <textarea placeholder="Paste Luma emails" value={whitelistEmails} onChange={(event) => setWhitelistEmails(event.target.value)} />
+                  <textarea placeholder="Paste emails" value={whitelistEmails} onChange={(event) => setWhitelistEmails(event.target.value)} />
                 </label>
                 <div className={`feePanel ${creationFeePaid ? 'paid' : ''}`}>
                   <WalletCards size={20} />

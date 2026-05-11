@@ -462,7 +462,7 @@ export function OrganizerPortal() {
                 </label>
               </div>
               <label className="field">
-                Luma whitelist emails
+                Email whitelist
                 <textarea value={eventForm.whitelistEmails} onChange={(event) => setEventForm({ ...eventForm, whitelistEmails: event.target.value })} placeholder="Paste emails" />
               </label>
               <div className={`creditQuote ${canCreateEvent ? 'ready' : ''}`}>

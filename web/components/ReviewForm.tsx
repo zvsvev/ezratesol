@@ -2,6 +2,7 @@
 
 import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
 import { ArrowLeft, CheckCircle2, Send, ShieldCheck, Star } from 'lucide-react'
+import Link from 'next/link'
 import { useState } from 'react'
 import type { EventRecord } from '@/lib/types'
 
@@ -51,9 +52,9 @@ export function ReviewForm({ event }: { event: EventRecord }) {
   return (
     <section className="phoneShell reviewShell" aria-label="EZRATE review app">
       <header className="appTop">
-        <a className="iconButton" href="/app" aria-label="Back to app">
+        <Link className="iconButton" href="/app" aria-label="Back to app">
           <ArrowLeft size={20} />
-        </a>
+        </Link>
         <div className="appTitle centered">
           <strong><img src="/ezrate-logo.png" alt="" /> Review</strong>
           <span>Verified attendee</span>
@@ -90,15 +91,15 @@ export function ReviewForm({ event }: { event: EventRecord }) {
             )}
           </div>
           <div className="eventBadge">
-            <ShieldCheck size={18} /> Luma
+            <ShieldCheck size={18} /> Whitelisted
           </div>
         </section>
 
         <div className="reviewPanel">
           <div className="formGrid">
             <label className="field">
-              Luma email
-              <input placeholder="Luma email" value={email} onChange={(event) => setEmail(event.target.value)} />
+              Email
+              <input placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} />
             </label>
 
             <div className="field">

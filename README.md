@@ -1,8 +1,8 @@
 # EZRATE
 
-On-chain event review MVP for Solana devnet.
+On-chain event reviews for Solana.
 
-EZRATE lets event organizers create a review page, whitelist attendee emails exported from Luma, and collect tamper-resistant ratings. The MVP keeps discovery, comments, and whitelist checks off-chain, while the Solana program stores event counters and immutable review commitments.
+EZRATE lets event organizers create a review page, whitelist attendee emails, and collect tamper-resistant ratings. Discovery, comments, and whitelist checks run through the web app, while the Solana program stores event counters and immutable review commitments.
 
 ## Monorepo
 
@@ -11,17 +11,17 @@ programs/ezrate/   Quasar Solana program
 web/               Next.js app, API routes, Reown AppKit integration
 ```
 
-## MVP Architecture
+## Architecture
 
 - On-chain: event account, review account, rating, comment hash, reviewer identity hash, duplicate prevention with PDA seeds.
-- Backend: Next.js API routes. For the pitch MVP this reads/writes JSON in `web/data`. Swap this for Turso, Neon, Supabase, or Upstash before production.
+- Backend: Next.js API routes. The current local build reads/writes JSON in `web/data`; production persistence should use Supabase, Turso, Neon, or Upstash.
 - Frontend: one Next.js app with host-aware homepages.
   - `ezrate.fun` renders the landing page.
   - `app.ezrate.fun` renders the regular user review app.
   - `event.ezrate.fun` renders the desktop event organizer portal.
   - `app.ezrate.fun/[username]` renders a public organizer profile.
   - Local fallback routes: `/` for landing, `/app` for user app, `/create` for organizer portal.
-- Login/wallet: Reown AppKit Solana adapter. The UI is wired for AppKit and keeps email capture explicit for the MVP because Google identity verification depends on your Reown Cloud/Auth configuration.
+- Login/wallet: Reown AppKit Solana adapter. The UI is wired for AppKit and keeps email capture explicit because Google identity verification depends on your Reown Cloud/Auth configuration.
 
 ## Quick Start
 
@@ -40,7 +40,7 @@ Use [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md) for a step-by-step Vercel deployment 
 
 ## Supabase
 
-Use [SUPABASE.md](./SUPABASE.md) and [supabase/schema.sql](./supabase/schema.sql) when moving the MVP from local JSON/browser storage to hosted persistence.
+Use [SUPABASE.md](./SUPABASE.md) and [supabase/schema.sql](./supabase/schema.sql) when moving local JSON/browser storage to hosted persistence.
 
 ## Solana Program
 
@@ -65,7 +65,7 @@ This matches Solana's fee model: programs cannot pay the network fee before exec
 
 ## Pitch Demo Flow
 
-1. Organizer opens the desktop portal, registers company name and username once, buys credits, then creates an event with max reviews and a Luma email whitelist.
+1. Organizer opens the desktop portal, registers company name and username once, buys credits, then creates an event with max reviews and an email whitelist.
 2. Attendee opens `/event/solana-builder-night`, connects with Reown, enters the same email, and submits a rating plus a 100+ character review.
 3. API checks whitelist and duplicate status, hashes the email/comment, and records the pending review commitment.
 4. Solana relayer integration submits the commitment to the Quasar program on devnet.

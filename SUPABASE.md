@@ -1,12 +1,12 @@
 # Supabase Upgrade Plan
 
-The MVP currently uses JSON files for events/reviews and `localStorage` for profile edits. That is fine for pitching, but Supabase is recommended before real users.
+The current local build uses JSON files for events/reviews and `localStorage` for profile edits. Supabase is recommended before real users.
 
 ## Why Supabase
 
 - Persist user profiles across devices.
 - Store organizer-created events safely.
-- Store hashed Luma whitelist emails.
+- Store hashed whitelist emails.
 - Track reviews, reward eligibility, reward winners, and payout status.
 - Add admin/organizer dashboards later without changing the product flow.
 

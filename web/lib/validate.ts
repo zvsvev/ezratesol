@@ -1,5 +1,5 @@
 // Lightweight, dependency-free input validation helpers.
-// Keeps API surface small and avoids pulling in zod for the MVP.
+// Keeps API surface small and avoids pulling in zod for basic request validation.
 
 export const LIMITS = {
   eventName: 96,

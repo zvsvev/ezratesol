@@ -1,6 +1,6 @@
 # Deploy EZRATE to Vercel
 
-This guide deploys the Next.js MVP in `web/` to Vercel.
+This guide deploys the Next.js app in `web/` to Vercel.
 
 ## 1. Push to GitHub
 
@@ -87,7 +87,7 @@ Recommended routing:
 - `app.ezrate.fun` serves the regular user review app.
 - `event.ezrate.fun` serves the desktop event organizer portal.
 
-## 7. MVP Production Notes
+## 7. Launch Notes
 
 Before using real events:
 

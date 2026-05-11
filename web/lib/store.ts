@@ -24,7 +24,7 @@ async function loadDb(): Promise<Database> {
     try {
       await fs.writeFile(runtimePath, JSON.stringify(seed, null, 2))
     } catch {
-      // Vercel's filesystem is read-only at runtime. The seed data still works for the MVP.
+      // Vercel's filesystem is read-only at runtime. The seed data still works for local demos.
     }
     return seed
   }

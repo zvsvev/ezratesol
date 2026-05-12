@@ -413,7 +413,9 @@ export function AppHome({ mode = 'reviewer' }: { mode?: Role }) {
                   {isFindingEvent ? 'Finding' : 'Find event'} <SearchCheck size={18} />
                 </button>
                 <div className="hintCard">
-                  Demo passcode: <strong>solananight52</strong>
+                  Passcode: <strong>jakartameetup80</strong>
+                  <br />
+                  Review link: <strong>app.ezrate.fun/event/jakarta-meetup</strong>
                 </div>
                 {previewEvent && (
                   <div className="previewCard">

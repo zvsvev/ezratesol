@@ -45,29 +45,41 @@ export function sha256Hex(value: string) {
 function normalizeDb(db: Database): Database {
   const bannerBySlug: Record<string, string> = {
     'solana-builder-night': '/banners/solana-night.svg',
+    'jakarta-meetup': '/banners/solana-night.svg',
     'defi-breakfast-club': '/banners/defi-breakfast.svg',
     'zk-meetup-afterhours': '/banners/zk-afterhours.svg'
   }
 
   const normalizedEvents: EventRecord[] = db.events.map((event) => {
     const isDemoEvent = event.slug === 'solana-builder-night'
-    const endsAt = isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.endsAt || event.startsAt || new Date().toISOString()
+    const isJakartaDemo = event.slug === 'jakarta-meetup'
+    const endsAt = isDemoEvent
+      ? '2026-04-28T12:00:00.000Z'
+      : isJakartaDemo
+        ? '2026-05-12T00:00:00.000Z'
+        : event.endsAt || event.startsAt || new Date().toISOString()
     return {
       ...event,
       endsAt,
       bannerImage: event.bannerImage || bannerBySlug[event.slug] || '/banners/solana-night.svg',
-      passcode: isDemoEvent ? 'solananight52' : event.passcode || makePasscode(event.name),
-      reviewOpensAt: isDemoEvent ? '2026-04-28T12:00:00.000Z' : event.reviewOpensAt || endsAt,
+      passcode: isDemoEvent ? 'solananight52' : isJakartaDemo ? 'jakartameetup80' : event.passcode || makePasscode(event.name),
+      reviewOpensAt: isDemoEvent ? '2026-04-28T12:00:00.000Z' : isJakartaDemo ? '2026-05-12T00:00:00.000Z' : event.reviewOpensAt || endsAt,
       reviewClosesAt:
         isDemoEvent
           ? '2026-04-29T12:00:00.000Z'
+          : isJakartaDemo
+            ? '2026-05-13T00:00:00.000Z'
           : event.reviewClosesAt || new Date(new Date(endsAt).getTime() + 24 * 60 * 60 * 1000).toISOString(),
-      rewardMode: isDemoEvent ? 'random' : event.rewardMode || 'none',
-      rewardAsset: isDemoEvent ? 'USDC' : event.rewardAsset || 'SOL',
-      rewardAmount: isDemoEvent ? '100' : event.rewardAmount || '',
+      rewardMode: isDemoEvent || isJakartaDemo ? 'random' : event.rewardMode || 'none',
+      rewardAsset: isDemoEvent ? 'USDC' : isJakartaDemo ? 'SOL' : event.rewardAsset || 'SOL',
+      rewardAmount: isDemoEvent ? '100' : isJakartaDemo ? '1' : event.rewardAmount || '',
       creationFeeStatus: event.creationFeeStatus || 'paid'
     }
   })
+
+  if (!normalizedEvents.some((event) => event.slug === 'jakarta-meetup')) {
+    normalizedEvents.unshift(jakartaMeetupEvent())
+  }
 
   if (!normalizedEvents.some((event) => event.slug === 'solana-builder-night')) {
     normalizedEvents.unshift(demoEvent())
@@ -76,6 +88,38 @@ function normalizeDb(db: Database): Database {
   return {
     ...db,
     events: normalizedEvents
+  }
+}
+
+function jakartaMeetupEvent(): EventRecord {
+  return {
+    id: 'evt_jakarta_meetup',
+    slug: 'jakarta-meetup',
+    name: 'Jakarta Meetup',
+    location: 'Jakarta',
+    startsAt: '2026-05-11T12:00:00.000Z',
+    endsAt: '2026-05-12T00:00:00.000Z',
+    organizer: 'EZRATE Labs',
+    maxReviews: 80,
+    passcode: 'jakartameetup80',
+    bannerImage: '/banners/solana-night.svg',
+    reviewOpensAt: '2026-05-12T00:00:00.000Z',
+    reviewClosesAt: '2026-05-13T00:00:00.000Z',
+    rewardMode: 'random',
+    rewardAsset: 'SOL',
+    rewardAmount: '1',
+    creationFeeStatus: 'paid',
+    whitelistEmails: [
+      'andi@ezrate.fun',
+      'budi@ezrate.fun',
+      'cahyo@ezrate.fun',
+      'dimas@ezrate.fun',
+      'eko@ezrate.fun',
+      'demo@ezrate.fun'
+    ],
+    averageRating: 4.9,
+    reviewCount: 12,
+    onchainEvent: 'pending-mainnet-deploy'
   }
 }
 
@@ -125,6 +169,13 @@ export async function getEvent(slug: string) {
 export async function getEventByPasscode(passcode: string) {
   const db = await loadDb()
   const normalizedPasscode = passcode.trim().toLowerCase()
+  if (normalizedPasscode === 'jakartameetup80') {
+    const event = db.events.find((item) => item.slug === 'jakarta-meetup') || jakartaMeetupEvent()
+    return {
+      ...event,
+      whitelistEmails: []
+    }
+  }
   if (normalizedPasscode === 'solananight52') {
     const event = db.events.find((item) => item.slug === 'solana-builder-night') || demoEvent()
     return {

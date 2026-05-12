@@ -1,6 +1,35 @@
 {
   "events": [
     {
+      "id": "evt_jakarta_meetup",
+      "slug": "jakarta-meetup",
+      "name": "Jakarta Meetup",
+      "location": "Jakarta",
+      "startsAt": "2026-05-11T12:00:00.000Z",
+      "endsAt": "2026-05-12T00:00:00.000Z",
+      "organizer": "EZRATE Labs",
+      "maxReviews": 80,
+      "passcode": "jakartameetup80",
+      "bannerImage": "/banners/solana-night.svg",
+      "reviewOpensAt": "2026-05-12T00:00:00.000Z",
+      "reviewClosesAt": "2026-05-13T00:00:00.000Z",
+      "rewardMode": "random",
+      "rewardAsset": "SOL",
+      "rewardAmount": "1",
+      "creationFeeStatus": "paid",
+      "whitelistEmails": [
+        "andi@ezrate.fun",
+        "budi@ezrate.fun",
+        "cahyo@ezrate.fun",
+        "dimas@ezrate.fun",
+        "eko@ezrate.fun",
+        "demo@ezrate.fun"
+      ],
+      "averageRating": 4.9,
+      "reviewCount": 12,
+      "onchainEvent": "pending-mainnet-deploy"
+    },
+    {
       "id": "evt_builder_night",
       "slug": "solana-builder-night",
       "name": "Solana Builder Night",
